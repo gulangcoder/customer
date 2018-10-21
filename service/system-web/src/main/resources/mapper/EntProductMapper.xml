@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntProductMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntProduct" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="product_series_sequence" property="productSeriesSequence" jdbcType="VARCHAR" />
+    <result column="product_series" property="productSeries" jdbcType="VARCHAR" />
+    <result column="product_image" property="productImage" jdbcType="VARCHAR" />
+    <result column="product_min_lines" property="productMinLines" jdbcType="DECIMAL" />
+    <result column="product_max_lines" property="productMaxLines" jdbcType="DECIMAL" />
+    <result column="applicable_people" property="applicablePeople" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="recommend" property="recommend" jdbcType="SMALLINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_code, sequence, product_series_sequence, product_series, product_image,
+    product_min_lines, product_max_lines, applicable_people, description, recommend,
+    status, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_product
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntProduct" >
+    insert into ent_product (id, company_code, sequence,
+    product_series_sequence, product_series, product_image,
+    product_min_lines, product_max_lines, applicable_people,
+    description, recommend, status,
+    create_user, create_time, update_user,
+    update_time)
+    values (#{id,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, #{sequence,jdbcType=INTEGER},
+    #{productSeriesSequence,jdbcType=VARCHAR}, #{productSeries,jdbcType=VARCHAR}, #{productImage,jdbcType=VARCHAR},
+    #{productMinLines,jdbcType=DECIMAL}, #{productMaxLines,jdbcType=DECIMAL}, #{applicablePeople,jdbcType=VARCHAR},
+    #{description,jdbcType=VARCHAR}, #{recommend,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT},
+    #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR},
+    #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntProduct" >
+    insert into ent_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="productSeriesSequence != null" >
+        product_series_sequence,
+      </if>
+      <if test="productSeries != null" >
+        product_series,
+      </if>
+      <if test="productImage != null" >
+        product_image,
+      </if>
+      <if test="productMinLines != null" >
+        product_min_lines,
+      </if>
+      <if test="productMaxLines != null" >
+        product_max_lines,
+      </if>
+      <if test="applicablePeople != null" >
+        applicable_people,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="productSeriesSequence != null" >
+        #{productSeriesSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productSeries != null" >
+        #{productSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productMinLines != null" >
+        #{productMinLines,jdbcType=DECIMAL},
+      </if>
+      <if test="productMaxLines != null" >
+        #{productMaxLines,jdbcType=DECIMAL},
+      </if>
+      <if test="applicablePeople != null" >
+        #{applicablePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntProduct" >
+    update ent_product
+    <set >
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="productSeriesSequence != null" >
+        product_series_sequence = #{productSeriesSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productSeries != null" >
+        product_series = #{productSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        product_image = #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productMinLines != null" >
+        product_min_lines = #{productMinLines,jdbcType=DECIMAL},
+      </if>
+      <if test="productMaxLines != null" >
+        product_max_lines = #{productMaxLines,jdbcType=DECIMAL},
+      </if>
+      <if test="applicablePeople != null" >
+        applicable_people = #{applicablePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=SMALLINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntProduct" >
+    update ent_product
+    set company_code = #{companyCode,jdbcType=VARCHAR},
+    sequence = #{sequence,jdbcType=INTEGER},
+    product_series_sequence = #{productSeriesSequence,jdbcType=VARCHAR},
+    product_series = #{productSeries,jdbcType=VARCHAR},
+    product_image = #{productImage,jdbcType=VARCHAR},
+    product_min_lines = #{productMinLines,jdbcType=DECIMAL},
+    product_max_lines = #{productMaxLines,jdbcType=DECIMAL},
+    applicable_people = #{applicablePeople,jdbcType=VARCHAR},
+    description = #{description,jdbcType=VARCHAR},
+    recommend = #{recommend,jdbcType=SMALLINT},
+    status = #{status,jdbcType=SMALLINT},
+    create_user = #{createUser,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=VARCHAR},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="checkSeriesSequence" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null and id != '' " >
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="productSeriesSequence != null and productSeriesSequence != '' " >
+      AND product_series_sequence = #{productSeriesSequence,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="checkSeries" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null and id != '' " >
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="productSeries != null and productSeries != '' " >
+      AND product_series = #{productSeries,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getAllList" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode}
+    </if>
+    order by sequence desc
+  </select>
+
+  <select id="getProductList" resultType="cn.fintecher.system.model.EntProduct" parameterType="java.util.Map" >
+    select
+    p.id id,p.sequence sequence,p.product_series_sequence productSeriesSequence,p.product_series productSeries,
+    p.product_min_lines productMinLines,p.product_max_lines productMaxLines,p.applicable_people applicablePeople,
+    p.recommend recommend,p.status status,p.update_user updateUser,p.update_time updateTime
+    FROM ent_product p
+    LEFT JOIN ent_product_detail pd
+    ON p.id = pd.product_id
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND p.company_code = #{companyCode}
+    </if>
+    <if test="productSeriesSequence != null and productSeriesSequence != '' " >
+      AND p.product_series_sequence = #{productSeriesSequence}
+    </if>
+    <if test="productSeries != null and productSeries != '' " >
+      AND p.product_series = #{productSeries}
+    </if>
+    <if test="productSequence != null and productSequence != '' " >
+      AND pd.product_sequence = #{productSequence}
+    </if>
+    <if test="productName != null and productName != '' " >
+      AND pd.product_name = #{productName}
+    </if>
+    GROUP BY p.id
+    order by p.sequence desc
+  </select>
+
+  <update id="updateProductStatus" parameterType="map">
+    update ent_product
+    set status = #{status},
+    update_user = #{updateUser},
+    update_time = #{updateTime}
+    where id = #{id}
+  </update>
+
+  <select id="getProductInfo" resultType="java.util.Map" parameterType="java.util.Map" >
+    SELECT a.product_max_lines as productMaxLines,a.product_series_sequence as productSeriesSequence,a.product_series as productSeries,
+    a.product_image as productImage,a.applicable_people as applicablePeople,a.description as description,a.recommend as recommend,IFNULL(b.rate,NULL) as rate FROM (
+    (SELECT MAX(product_max_lines) as product_max_lines,product_series_sequence,product_series,product_image,applicable_people,description,recommend
+    FROM ent_product
+    WHERE status = 1 and company_code=#{companyCode,jdbcType=VARCHAR}
+    <if test="productId != null and productId != '' " >
+      AND id = #{productId,jdbcType=VARCHAR}
+    </if>) a,
+    (SELECT MIN(CASE WHEN rate_flag = 2 then (rate/360)
+    WHEN rate_flag = 1 then (rate/30)
+    ELSE rate
+    end) as rate
+    FROM ent_product_credit
+    WHERE status = 1 and delete_flag = 0 and company_code=#{companyCode,jdbcType=VARCHAR}
+    <if test="productId != null and productId != '' " >
+      AND product_id = #{productId,jdbcType=VARCHAR}
+    </if>) b)
+  </select>
+
+  <select id="getProductCustList"  resultType="cn.fintecher.system.model.ProductCust" parameterType="java.util.Map">
+    SELECT p.id productId,p.sequence sequence,p.product_series_sequence productSeriesSequence,p.product_series productSeries,
+    p.product_min_lines productMinLines,p.product_max_lines productMaxLines,p.applicable_people applicablePeople,
+    p.recommend recommend,p.company_code companyCode,p.product_image productImage,cp.apply_status applyStatus,cp.cust_id custId
+    FROM ent_product p LEFT JOIN
+   (SELECT cpa.cust_id,
+    CASE WHEN #{custId,jdbcType=VARCHAR} = '' then 0
+    ELSE IFNULL(cpa.apply_status,0)
+    END apply_status,
+    cpa.product_id from ent_cust_product_apply cpa
+   WHERE 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND cpa.company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="custId != null and custId != '' " >
+      AND cpa.cust_id = #{custId,jdbcType=VARCHAR}
+    </if>
+   ) cp
+   on p.id = cp.product_id
+    where p.status = 1
+    <if test="companyCode != null and companyCode != '' " >
+      AND p.company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    GROUP BY p.id
+    ORDER BY p.recommend ASC,p.create_time  DESC
+  </select>
+
+  <select id="getProductRate" resultType="java.lang.String" parameterType="java.util.Map" >
+    SELECT MIN(CASE WHEN rate_flag = 2 then (rate/360)
+    WHEN rate_flag = 1 then (rate/30)
+    ELSE rate
+    end) as rate
+    FROM ent_product_credit
+    where status = 1 and delete_flag = 0
+    <if test="productId != null and productId != '' " >
+      AND product_id = #{productId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>

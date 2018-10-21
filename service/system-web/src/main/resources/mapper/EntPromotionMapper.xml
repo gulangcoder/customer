@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fintecher.system.mapper.EntPromotionMapper">
+	<resultMap id="EntPromotionResultMap" type="cn.fintecher.system.model.EntPromotion">
+		<id column="id" property="id"></id>
+		<result column="promotion_name" property="promotionName"></result>
+		<result column="create_user" property="createUser"></result>
+		<result column="create_time" property="createTime"></result>
+		<result column="update_user" property="updateUser"></result>
+		<result column="update_time" property="updateTime"></result>
+		<result column="remark" property="remark"></result>
+		<result column="status" property="status"></result>
+		<result column="company_code" property="companyCode"></result>
+		<result column="start_time" property="startTime"></result>
+		<result column="end_time" property="endTime"></result>
+		<result column="promotion_type" property="promotionType"></result>
+		<result column="promotion_pattern" property="promotionPattern"></result>
+		<result column="reservation" property="reservation"></result>
+	</resultMap>
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id,	promotion_name,	create_user,	create_time,	update_user,	update_time,	remark,	status,	company_code,	start_time,	end_time,	promotion_type,	promotion_pattern,	reservation
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultMap="EntPromotionResultMap" parameterType="java.lang.String">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM ent_promotion
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		 DELETE FROM ent_promotion
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="cn.fintecher.system.model.EntPromotion">
+		 INSERT INTO ent_promotion
+ 		(id,promotion_name,create_user,create_time,update_user,update_time,remark,status,company_code,start_time,end_time,promotion_type,promotion_pattern,reservation) 
+		 VALUES 
+ 		(#{id},#{promotionName},#{createUser},#{createTime},#{updateUser},#{updateTime},#{remark},#{status},#{companyCode},#{startTime},#{endTime},#{promotionType},#{promotionPattern},#{reservation}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="cn.fintecher.system.model.EntPromotion">
+		 INSERT INTO ent_promotion
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="promotionName != null">
+				 promotion_name,
+			</if>
+			<if test="createUser != null">
+				 create_user,
+			</if>
+			<if test="createTime != null">
+				 create_time,
+			</if>
+			<if test="updateUser != null">
+				 update_user,
+			</if>
+			<if test="updateTime != null">
+				 update_time,
+			</if>
+			<if test="remark != null">
+				 remark,
+			</if>
+			<if test="status != null">
+				 status,
+			</if>
+			<if test="companyCode != null">
+				 company_code,
+			</if>
+			<if test="startTime != null">
+				 start_time,
+			</if>
+			<if test="endTime != null">
+				 end_time,
+			</if>
+			<if test="promotionType != null">
+				 promotion_type,
+			</if>
+			<if test="promotionPattern != null">
+				 promotion_pattern,
+			</if>
+			<if test="reservation != null">
+				 reservation,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="promotionName!=null">
+				 #{promotionName},
+			</if>
+			<if test="createUser!=null">
+				 #{createUser},
+			</if>
+			<if test="createTime!=null">
+				 #{createTime},
+			</if>
+			<if test="updateUser!=null">
+				 #{updateUser},
+			</if>
+			<if test="updateTime!=null">
+				 #{updateTime},
+			</if>
+			<if test="remark!=null">
+				 #{remark},
+			</if>
+			<if test="status!=null">
+				 #{status},
+			</if>
+			<if test="companyCode!=null">
+				 #{companyCode},
+			</if>
+			<if test="startTime!=null">
+				 #{startTime},
+			</if>
+			<if test="endTime!=null">
+				 #{endTime},
+			</if>
+			<if test="promotionType!=null">
+				 #{promotionType},
+			</if>
+			<if test="promotionPattern!=null">
+				 #{promotionPattern},
+			</if>
+			<if test="reservation!=null">
+				 #{reservation},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntPromotion">
+		 UPDATE ent_promotion
+ 		 <set> 
+			<if test="promotionName != null">
+				 promotion_name = #{promotionName},
+			</if>
+			<if test="createUser != null">
+				 create_user = #{createUser},
+			</if>
+			<if test="createTime != null">
+				 create_time = #{createTime},
+			</if>
+			<if test="updateUser != null">
+				 update_user = #{updateUser},
+			</if>
+			<if test="updateTime != null">
+				 update_time = #{updateTime},
+			</if>
+			<if test="remark != null">
+				 remark = #{remark},
+			</if>
+			<if test="status != null">
+				 status = #{status},
+			</if>
+			<if test="companyCode != null">
+				 company_code = #{companyCode},
+			</if>
+			<if test="startTime != null">
+				 start_time = #{startTime},
+			</if>
+			<if test="endTime != null">
+				 end_time = #{endTime},
+			</if>
+			<if test="promotionType != null">
+				 promotion_type = #{promotionType},
+			</if>
+			<if test="promotionPattern != null">
+				 promotion_pattern = #{promotionPattern},
+			</if>
+			<if test="reservation != null">
+				 reservation = #{reservation},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntPromotion">
+		 UPDATE ent_promotion
+		 SET 
+			 promotion_name = #{promotionName},
+			 create_user = #{createUser},
+			 create_time = #{createTime},
+			 update_user = #{updateUser},
+			 update_time = #{updateTime},
+			 remark = #{remark},
+			 status = #{status},
+			 company_code = #{companyCode},
+			 start_time = #{startTime},
+			 end_time = #{endTime},
+			 promotion_type = #{promotionType},
+			 promotion_pattern = #{promotionPattern},
+			 reservation = #{reservation}
+		 WHERE id = #{id}
+	</update>
+
+	<select id="getEntPromotionList" parameterType="map" resultMap="EntPromotionResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ent_promotion
+		<where>
+			company_code = #{companyCode}
+			<if test="promotionName != null">
+				AND promotion_name LIKE CONCAT('%',#{promotionName},'%')
+			</if>
+			ORDER BY update_time DESC
+		</where>
+
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteById" parameterType="java.lang.String">
+		DELETE FROM ent_promotion
+		WHERE id = #{id}
+	</delete>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectById"  resultMap="EntPromotionResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ent_promotion
+		WHERE id = #{id}
+	</select>
+
+	<select id="getEffectiveActivity" parameterType="java.lang.String"  resultMap="EntPromotionResultMap">
+		select <include refid="Base_Column_List" />
+		from ent_promotion
+		where company_code = #{companyCode} and status = 1 order by create_time desc
+	</select>
+</mapper>

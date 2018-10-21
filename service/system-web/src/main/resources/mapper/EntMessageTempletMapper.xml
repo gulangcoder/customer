@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntMessageTempletMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntMessageTemplet" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="msg_type" property="msgType" jdbcType="VARCHAR" />
+    <result column="is_push" property="isPush" jdbcType="SMALLINT" />
+    <result column="is_private_msg" property="isPrivateMsg" jdbcType="SMALLINT" />
+    <result column="Is_send_msg" property="isSendMsg" jdbcType="SMALLINT" />
+    <result column="is_access" property="isAccess" jdbcType="SMALLINT" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, msg_type, is_push, is_private_msg, Is_send_msg, is_access, company_code, 
+    create_user, create_time, update_user, update_time, status, content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_message_templet
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_message_templet
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntMessageTemplet" >
+    insert into ent_message_templet (id, title, msg_type, 
+      is_push, is_private_msg, Is_send_msg, 
+      is_access, company_code, create_user, 
+      create_time, update_user, update_time, 
+      status, content)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR},
+      #{isPush,jdbcType=SMALLINT}, #{isPrivateMsg,jdbcType=SMALLINT}, #{isSendMsg,jdbcType=SMALLINT}, 
+      #{isAccess,jdbcType=SMALLINT}, #{companyCode,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=SMALLINT}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntMessageTemplet" >
+    insert into ent_message_templet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="msgType != null" >
+        msg_type,
+      </if>
+      <if test="isPush != null" >
+        is_push,
+      </if>
+      <if test="isPrivateMsg != null" >
+        is_private_msg,
+      </if>
+      <if test="isSendMsg != null" >
+        Is_send_msg,
+      </if>
+      <if test="isAccess != null" >
+        is_access,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null" >
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="isPush != null" >
+        #{isPush,jdbcType=SMALLINT},
+      </if>
+      <if test="isPrivateMsg != null" >
+        #{isPrivateMsg,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendMsg != null" >
+        #{isSendMsg,jdbcType=SMALLINT},
+      </if>
+      <if test="isAccess != null" >
+        #{isAccess,jdbcType=SMALLINT},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntMessageTemplet" >
+    update ent_message_templet
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null" >
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="isPush != null" >
+        is_push = #{isPush,jdbcType=SMALLINT},
+      </if>
+      <if test="isPrivateMsg != null" >
+        is_private_msg = #{isPrivateMsg,jdbcType=SMALLINT},
+      </if>
+      <if test="isSendMsg != null" >
+        Is_send_msg = #{isSendMsg,jdbcType=SMALLINT},
+      </if>
+      <if test="isAccess != null" >
+        is_access = #{isAccess,jdbcType=SMALLINT},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntMessageTemplet" >
+    update ent_message_templet
+    set title = #{title,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      is_push = #{isPush,jdbcType=SMALLINT},
+      is_private_msg = #{isPrivateMsg,jdbcType=SMALLINT},
+      Is_send_msg = #{isSendMsg,jdbcType=SMALLINT},
+      is_access = #{isAccess,jdbcType=SMALLINT},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询数据列表-->
+  <select id="findList" parameterType="map" resultType="map">
+    select t.id, t.title, t.is_push isPush, t.is_private_msg isPrivateMsg, t.is_send_msg isSendMsg,
+    t.is_access isAccess, t.company_code companyCode,
+    t.create_user createUser, t.create_time createTime,
+    t.update_user updateUser, t.update_time updateTime,
+    t.status, t.content,b.detail_name msgType
+    from ent_message_templet t left join sys_dict_detail b
+    on t.msg_type = b.detail_code
+    where  t.company_code = #{companyCode} and t.company_code = b.company_code
+    <if test="null!=status">
+      and  t.status=#{status}
+    </if>
+    <if test="null!=title and ''!=title">
+      and  t.title like  CONCAT('%',#{title},'%')
+    </if>
+    <if test="null!=msgType and ''!=msgType">
+      and  t.msg_type = #{msgType}
+    </if>
+    order by if(isnull(t.update_time),t.create_time,t.update_time) desc
+  </select>
+
+  <!--查询数据列表-->
+  <select id="getMsgTemplDetailById" parameterType="map" resultType="cn.fintecher.system.model.EntMessageTemplet">
+    select t.id, t.title, t.is_push isPush, t.is_private_msg isPrivateMsg, t.is_send_msg isSendMsg,
+    t.is_access isAccess, t.company_code companyCode,
+    t.create_user createUser, t.create_time createTime,
+    t.update_user updateUser, t.update_time updateTime,
+    t.status, t.content,b.detail_name msgType
+    from ent_message_templet t left join sys_dict_detail b
+    on t.msg_type = b.detail_code
+    where  t.company_code = #{companyCode} and t.company_code = b.company_code
+    and t.id = #{id,jdbcType=VARCHAR} and b.item_code = 'msgType'
+  </select>
+
+  <!--查询数据列表-->
+  <select id="getTempDetailList" parameterType="map" resultType="map">
+    select t.id, t.title, t.is_push isPush, t.is_private_msg isPrivateMsg, t.is_send_msg isSendMsg,
+    t.is_access isAccess, t.company_code companyCode,
+    t.create_user createUser, t.create_time createTime,
+    t.update_user updateUser, t.update_time updateTime,
+    t.status, t.content,b.detail_name msgType
+    from ent_message_templet t left join sys_dict_detail b
+    on t.msg_type = b.detail_code
+    where t.company_code = #{companyCode} and t.company_code = b.company_code and b.item_code='msgType' and t.msg_type =#{msgType}
+  </select>
+</mapper>

@@ -1,0 +1,41 @@
+spring:
+    application:
+        name: system-web
+    profiles:
+        active: @spring.profiles.active@
+    jackson:
+        serialization.write_dates_as_timestamps: true
+    mvc:
+        favicon:
+            enabled: false
+    messages:
+      basename: i18n/messages
+      cache-seconds: 3600
+    http:
+      multipart:
+        enabled: false
+server:
+    session:
+        cookie:
+            http-only: true
+        timeout: 36000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+quartz:
+  enabled: true
+mybatis:
+  type-aliases-package: cn.fintecher.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true
+
+sessionTimeout: 600
+#允许用户密码错误次数
+loginErrorLimit: 99
+

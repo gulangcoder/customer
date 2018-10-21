@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntProductLadderMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntProductLadder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="product_credit_id" property="productCreditId" jdbcType="VARCHAR" />
+    <result column="min_days" property="minDays" jdbcType="INTEGER" />
+    <result column="max_days" property="maxDays" jdbcType="INTEGER" />
+    <result column="amount_rate" property="amountRate" jdbcType="DECIMAL" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="SMALLINT" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_code, product_credit_id, min_days, max_days, amount_rate, delete_flag, 
+    type, batch
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_product_ladder
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_product_ladder
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntProductLadder" >
+    insert into ent_product_ladder (id, company_code, product_credit_id, 
+      min_days, max_days, amount_rate, 
+      delete_flag, type, batch
+      )
+    values (#{id,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, #{productCreditId,jdbcType=VARCHAR}, 
+      #{minDays,jdbcType=INTEGER}, #{maxDays,jdbcType=INTEGER}, #{amountRate,jdbcType=DECIMAL}, 
+      #{deleteFlag,jdbcType=SMALLINT}, #{type,jdbcType=SMALLINT}, #{batch,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntProductLadder" >
+    insert into ent_product_ladder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="productCreditId != null" >
+        product_credit_id,
+      </if>
+      <if test="minDays != null" >
+        min_days,
+      </if>
+      <if test="maxDays != null" >
+        max_days,
+      </if>
+      <if test="amountRate != null" >
+        amount_rate,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCreditId != null" >
+        #{productCreditId,jdbcType=VARCHAR},
+      </if>
+      <if test="minDays != null" >
+        #{minDays,jdbcType=INTEGER},
+      </if>
+      <if test="maxDays != null" >
+        #{maxDays,jdbcType=INTEGER},
+      </if>
+      <if test="amountRate != null" >
+        #{amountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntProductLadder" >
+    update ent_product_ladder
+    <set >
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCreditId != null" >
+        product_credit_id = #{productCreditId,jdbcType=VARCHAR},
+      </if>
+      <if test="minDays != null" >
+        min_days = #{minDays,jdbcType=INTEGER},
+      </if>
+      <if test="maxDays != null" >
+        max_days = #{maxDays,jdbcType=INTEGER},
+      </if>
+      <if test="amountRate != null" >
+        amount_rate = #{amountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntProductLadder" >
+    update ent_product_ladder
+    set company_code = #{companyCode,jdbcType=VARCHAR},
+      product_credit_id = #{productCreditId,jdbcType=VARCHAR},
+      min_days = #{minDays,jdbcType=INTEGER},
+      max_days = #{maxDays,jdbcType=INTEGER},
+      amount_rate = #{amountRate,jdbcType=DECIMAL},
+      delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+      type = #{type,jdbcType=SMALLINT},
+      batch = #{batch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateProductLadder" parameterType="map">
+    update ent_product_ladder
+    set
+    delete_flag = #{deletedFlag}
+    where product_credit_id = #{productCreditId}
+           and batch = #{batch}
+  </update>
+
+  <select id="selectLadderByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_ladder
+    where 1 = 1
+    <if test="productCreditId != null and productCreditId != '' " >
+      AND product_credit_id = #{productCreditId,jdbcType=VARCHAR}
+    </if>
+    <if test="batch != null and batch != '' " >
+      AND batch = #{batch,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntGoodsPromotionMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntGoodsPromotion" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+    <result column="promotion_code" property="promotionCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_code, promotion_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_goods_promotion
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_goods_promotion
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntGoodsPromotion" >
+    insert into ent_goods_promotion (id, goods_code, promotion_code
+      )
+    values (#{id,jdbcType=VARCHAR}, #{goodsCode,jdbcType=VARCHAR}, #{promotionCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntGoodsPromotion" >
+    insert into ent_goods_promotion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsCode != null" >
+        goods_code,
+      </if>
+      <if test="promotionCode != null" >
+        promotion_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsCode != null" >
+        #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionCode != null" >
+        #{promotionCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntGoodsPromotion" >
+    update ent_goods_promotion
+    <set >
+      <if test="goodsCode != null" >
+        goods_code = #{goodsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionCode != null" >
+        promotion_code = #{promotionCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntGoodsPromotion" >
+    update ent_goods_promotion
+    set goods_code = #{goodsCode,jdbcType=VARCHAR},
+      promotion_code = #{promotionCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByGoodsCode" parameterType="java.lang.String">
+    delete from ent_goods_promotion where goods_code = #{goodsCode}
+  </delete>
+  <select id="getListByGoodsCode" parameterType="java.lang.String" resultType="cn.fintecher.system.model.EntPromotion">
+    SELECT
+	  p.id as id,p.promotion_name as promotionName,p.start_time as startTime,p.end_time as endTime,
+	  p.promotion_type as promotionType,p.promotion_pattern as promotionPattern,p.reservation as reservation,
+	  p.create_user as createUser,p.create_time as createTime,p.update_user as updateUser,p.update_time as updateTime,
+	  p.remark as remark,p.status as status,p.company_code as companyCode
+    FROM
+	  ent_promotion p
+    INNER JOIN ent_goods_promotion gp ON p.id = gp.promotion_code
+    WHERE
+	  gp.goods_code = #{goodsCode}
+    AND p.status = 1
+  </select>
+</mapper>

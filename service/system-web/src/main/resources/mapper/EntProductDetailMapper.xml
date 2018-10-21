@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntProductDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntProductDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="product_sequence" property="productSequence" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_image" property="productImage" jdbcType="VARCHAR" />
+    <result column="product_min_lines" property="productMinLines" jdbcType="DECIMAL" />
+    <result column="product_max_lines" property="productMaxLines" jdbcType="DECIMAL" />
+    <result column="credit_validity" property="creditValidity" jdbcType="INTEGER" />
+    <result column="credit_flag" property="creditFlag" jdbcType="SMALLINT" />
+    <result column="applicable_people" property="applicablePeople" jdbcType="VARCHAR" />
+    <result column="product_description" property="productDescription" jdbcType="VARCHAR" />
+    <result column="withholding_schedule" property="withholdingSchedule" jdbcType="SMALLINT" />
+    <result column="payments_schedule" property="paymentsSchedule" jdbcType="SMALLINT" />
+    <result column="prepayment" property="prepayment" jdbcType="SMALLINT" />
+    <result column="shadow_data" property="shadowData" jdbcType="VARCHAR" />
+    <result column="associated_company" property="associatedCompany" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_id, company_code, sequence, product_sequence, product_name, product_image, 
+    product_min_lines, product_max_lines, credit_validity, credit_flag, applicable_people, 
+    product_description, withholding_schedule, payments_schedule, prepayment, shadow_data, 
+    associated_company, status, remark, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_product_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_product_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntProductDetail" >
+    insert into ent_product_detail (id, product_id, company_code, 
+      sequence, product_sequence, product_name, 
+      product_image, product_min_lines, product_max_lines, 
+      credit_validity, credit_flag, applicable_people, 
+      product_description, withholding_schedule, 
+      payments_schedule, prepayment, shadow_data, 
+      associated_company, status, remark, 
+      create_user, create_time, update_user, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=INTEGER}, #{productSequence,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{productImage,jdbcType=VARCHAR}, #{productMinLines,jdbcType=DECIMAL}, #{productMaxLines,jdbcType=DECIMAL}, 
+      #{creditValidity,jdbcType=INTEGER}, #{creditFlag,jdbcType=SMALLINT}, #{applicablePeople,jdbcType=VARCHAR}, 
+      #{productDescription,jdbcType=VARCHAR}, #{withholdingSchedule,jdbcType=SMALLINT}, 
+      #{paymentsSchedule,jdbcType=SMALLINT}, #{prepayment,jdbcType=SMALLINT}, #{shadowData,jdbcType=VARCHAR}, 
+      #{associatedCompany,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntProductDetail" >
+    insert into ent_product_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="productSequence != null" >
+        product_sequence,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productImage != null" >
+        product_image,
+      </if>
+      <if test="productMinLines != null" >
+        product_min_lines,
+      </if>
+      <if test="productMaxLines != null" >
+        product_max_lines,
+      </if>
+      <if test="creditValidity != null" >
+        credit_validity,
+      </if>
+      <if test="creditFlag != null" >
+        credit_flag,
+      </if>
+      <if test="applicablePeople != null" >
+        applicable_people,
+      </if>
+      <if test="productDescription != null" >
+        product_description,
+      </if>
+      <if test="withholdingSchedule != null" >
+        withholding_schedule,
+      </if>
+      <if test="paymentsSchedule != null" >
+        payments_schedule,
+      </if>
+      <if test="prepayment != null" >
+        prepayment,
+      </if>
+      <if test="shadowData != null" >
+        shadow_data,
+      </if>
+      <if test="associatedCompany != null" >
+        associated_company,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="productSequence != null" >
+        #{productSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productMinLines != null" >
+        #{productMinLines,jdbcType=DECIMAL},
+      </if>
+      <if test="productMaxLines != null" >
+        #{productMaxLines,jdbcType=DECIMAL},
+      </if>
+      <if test="creditValidity != null" >
+        #{creditValidity,jdbcType=INTEGER},
+      </if>
+      <if test="creditFlag != null" >
+        #{creditFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="applicablePeople != null" >
+        #{applicablePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="productDescription != null" >
+        #{productDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="withholdingSchedule != null" >
+        #{withholdingSchedule,jdbcType=SMALLINT},
+      </if>
+      <if test="paymentsSchedule != null" >
+        #{paymentsSchedule,jdbcType=SMALLINT},
+      </if>
+      <if test="prepayment != null" >
+        #{prepayment,jdbcType=SMALLINT},
+      </if>
+      <if test="shadowData != null" >
+        #{shadowData,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedCompany != null" >
+        #{associatedCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntProductDetail" >
+    update ent_product_detail
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="productSequence != null" >
+        product_sequence = #{productSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productImage != null" >
+        product_image = #{productImage,jdbcType=VARCHAR},
+      </if>
+      <if test="productMinLines != null" >
+        product_min_lines = #{productMinLines,jdbcType=DECIMAL},
+      </if>
+      <if test="productMaxLines != null" >
+        product_max_lines = #{productMaxLines,jdbcType=DECIMAL},
+      </if>
+      <if test="creditValidity != null" >
+        credit_validity = #{creditValidity,jdbcType=INTEGER},
+      </if>
+      <if test="creditFlag != null" >
+        credit_flag = #{creditFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="applicablePeople != null" >
+        applicable_people = #{applicablePeople,jdbcType=VARCHAR},
+      </if>
+      <if test="productDescription != null" >
+        product_description = #{productDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="withholdingSchedule != null" >
+        withholding_schedule = #{withholdingSchedule,jdbcType=SMALLINT},
+      </if>
+      <if test="paymentsSchedule != null" >
+        payments_schedule = #{paymentsSchedule,jdbcType=SMALLINT},
+      </if>
+      <if test="prepayment != null" >
+        prepayment = #{prepayment,jdbcType=SMALLINT},
+      </if>
+      <if test="shadowData != null" >
+        shadow_data = #{shadowData,jdbcType=VARCHAR},
+      </if>
+      <if test="associatedCompany != null" >
+        associated_company = #{associatedCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntProductDetail" >
+    update ent_product_detail
+    set product_id = #{productId,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      product_sequence = #{productSequence,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_image = #{productImage,jdbcType=VARCHAR},
+      product_min_lines = #{productMinLines,jdbcType=DECIMAL},
+      product_max_lines = #{productMaxLines,jdbcType=DECIMAL},
+      credit_validity = #{creditValidity,jdbcType=INTEGER},
+      credit_flag = #{creditFlag,jdbcType=SMALLINT},
+      applicable_people = #{applicablePeople,jdbcType=VARCHAR},
+      product_description = #{productDescription,jdbcType=VARCHAR},
+      withholding_schedule = #{withholdingSchedule,jdbcType=SMALLINT},
+      payments_schedule = #{paymentsSchedule,jdbcType=SMALLINT},
+      prepayment = #{prepayment,jdbcType=SMALLINT},
+      shadow_data = #{shadowData,jdbcType=VARCHAR},
+      associated_company = #{associatedCompany,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="seletctProductDetail" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_detail
+    where 1 = 1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="productId != null and productId != '' " >
+      AND product_id = #{productId,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status != '' " >
+      AND status = #{status,jdbcType=SMALLINT}
+    </if>
+    <if test="productSequence != null and productSequence != '' " >
+      AND product_sequence = #{productSequence}
+    </if>
+    <if test="productName != null and productName != '' " >
+      AND product_name = #{productName}
+    </if>
+    order by sequence desc
+  </select>
+
+  <select id="checkProductSequence" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_detail
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null and id != '' " >
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="productSequence != null and productSequence != '' " >
+      AND product_sequence = #{productSequence,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="checkProductName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_detail
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="id != null and id != '' " >
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="productName != null and productName != '' " >
+      AND product_name = #{productName,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <update id="updatePriductDteailStatus" parameterType="map">
+    update ent_product_detail
+    set status = #{status},
+        update_user = #{updateUser},
+        update_time = #{updateTime}
+    where id = #{id}
+  </update>
+
+  <select id="getProductNameList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_detail
+    where 1 = 1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="productId != null and productId != '' " >
+      AND product_id = #{productId,jdbcType=VARCHAR}
+    </if>
+    order by sequence desc
+  </select>
+</mapper>

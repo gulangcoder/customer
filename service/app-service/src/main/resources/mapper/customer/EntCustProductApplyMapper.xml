@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.customer.EntCustProductApplyMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.customer.EntCustProductApply" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="apply_status" property="applyStatus" jdbcType="SMALLINT" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cust_id, product_id, apply_status, company_code, create_time, update_time, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_cust_product_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_cust_product_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.customer.EntCustProductApply" >
+    insert into ent_cust_product_apply (id, cust_id, product_id, 
+      apply_status, company_code, create_time, 
+      update_time, status)
+    values (#{id,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, 
+      #{applyStatus,jdbcType=SMALLINT}, #{companyCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.customer.EntCustProductApply" >
+    insert into ent_cust_product_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="applyStatus != null" >
+        apply_status,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null" >
+        #{applyStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.customer.EntCustProductApply" >
+    update ent_cust_product_apply
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null" >
+        apply_status = #{applyStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.customer.EntCustProductApply" >
+    update ent_cust_product_apply
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      apply_status = #{applyStatus,jdbcType=SMALLINT},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectProductApplyByMap" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_cust_product_apply
+    where 1 = 1
+    <if test="custId != null" >
+      AND cust_id = #{custId}
+    </if>
+    <if test="productId != null" >
+      AND product_id = #{productId}
+    </if>
+    <if test="companyCode != null" >
+      AND company_code = #{companyCode}
+    </if>
+  </select>
+
+  <update id="updateStatusByMap" parameterType="map" >
+    update ent_cust_product_apply
+    set status = #{status}
+    where cust_id = #{custId}
+     AND product_id = #{productId}
+     AND company_code = #{companyCode}
+  </update>
+
+  <select id="selectProductVideoByProdictId" resultType="cn.fintecher.app.model.customer.EntProductVideo" parameterType="map" >
+      select
+      id, product_id as productId, video_type as videoType, create_time as createTime,
+      update_time as updateTime, create_user as createUser, update_user updateUser, deleted_flag as deletedFlag
+      from ent_product_video
+      where deleted_flag = 1
+      <if test="productId != null and productId != '' " >
+        AND product_id = #{productId}
+      </if>
+  </select>
+
+  <select id="selectProductIdByMap" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_cust_product_apply
+    where 1 = 1 AND status = 6
+    <if test="custId != null" >
+      AND cust_id = #{custId}
+    </if>
+    <if test="companyCode != null" >
+      AND company_code = #{companyCode}
+    </if>
+  </select>
+</mapper>

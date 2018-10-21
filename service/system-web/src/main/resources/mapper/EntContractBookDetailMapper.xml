@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntContractBookDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.common.contract.EntContractBookDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="contract_book_no" property="contractBookNo" jdbcType="VARCHAR" />
+    <result column="contract_templ_id" property="contractTemplId" jdbcType="VARCHAR" />
+    <result column="contract_title" property="contractTitle" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_card_no" property="customerCardNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="contract_start_date" property="contractStartDate" jdbcType="TIMESTAMP" />
+    <result column="contract_end_date" property="contractEndDate" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, contract_book_no, contract_templ_id, contract_title, contract_type, customer_id, 
+    customer_name, customer_card_no, create_time, company_code, product_id,content,status,order_id,
+    contract_start_date,contract_end_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_contract_book_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_contract_book_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.common.contract.EntContractBookDetail" >
+    insert into ent_contract_book_detail (id, contract_book_no, contract_templ_id, 
+      contract_title, contract_type, customer_id, 
+      customer_name, customer_card_no, create_time, 
+      company_code, product_id, content,status,order_id,
+    contract_start_date,contract_end_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{contractBookNo,jdbcType=VARCHAR}, #{contractTemplId,jdbcType=VARCHAR}, 
+      #{contractTitle,jdbcType=VARCHAR}, #{contractType,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerCardNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{companyCode,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR},status,
+      ,orderId,
+    contractStartDate,contractEndDate
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.common.contract.EntContractBookDetail" >
+    insert into ent_contract_book_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractBookNo != null" >
+        contract_book_no,
+      </if>
+      <if test="contractTemplId != null" >
+        contract_templ_id,
+      </if>
+      <if test="contractTitle != null" >
+        contract_title,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerCardNo != null" >
+        customer_card_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="null!=status">
+        status,
+      </if>
+      <if test="null!=orderId">
+        order_id,
+      </if>
+      <if test="null!=contractEndDate">
+        contract_end_date,
+      </if>
+      <if test="null!=contractStartDate">
+        contract_start_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="contractBookNo != null" >
+        #{contractBookNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTemplId != null" >
+        #{contractTemplId,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTitle != null" >
+        #{contractTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCardNo != null" >
+        #{customerCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="status !=null">
+        #{status},
+      </if>
+      <if test="null!=orderId">
+        #{orderId},
+      </if>
+      <if test="null!=contractEndDate">
+        #{contractEndDate},
+      </if>
+      <if test="null!=contractStartDate">
+        #{contractStartDate},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.common.contract.EntContractBookDetail" >
+    update ent_contract_book_detail
+    <set >
+      <if test="contractBookNo != null" >
+        contract_book_no = #{contractBookNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTemplId != null" >
+        contract_templ_id = #{contractTemplId,jdbcType=VARCHAR},
+      </if>
+      <if test="contractTitle != null" >
+        contract_title = #{contractTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCardNo != null" >
+        customer_card_no = #{customerCardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="status !=null">
+        status = #{status},
+      </if>
+      <if test="null!=orderId">
+        order_id=#{orderId},
+      </if>
+      <if test="null!=contractEndDate">
+        contract_end_date=#{contractEndDate},
+      </if>
+      <if test="null!=contractStartDate">
+        contract_start_date=#{contractStartDate},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.common.contract.EntContractBookDetail" >
+    update ent_contract_book_detail
+    set contract_book_no = #{contractBookNo,jdbcType=VARCHAR},
+      contract_templ_id = #{contractTemplId,jdbcType=VARCHAR},
+      contract_title = #{contractTitle,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_card_no = #{customerCardNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      status = #{status},
+      order_id=#{orderId},
+      contract_start_date=#{contractStartDate},
+      contract_end_date=#{contractEndDate}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询数据列表-->
+  <select id="findList" parameterType="map" resultType="map">
+    select t.id, t.contract_book_no contractBookNo, t.contract_templ_id contractTemplId,
+    t.contract_title contractTitle,t.customer_id customerId,
+    t.customer_name customerName, t.customer_card_no customerCardNo, t.create_time createTime,
+    t.company_code companyCode, t.product_id productId,t.content,t.status,b.detail_name contractType,
+    t.contract_start_date contractStartDate,t.contract_end_date contractEndDate
+    from ent_contract_book_detail t left join sys_dict_detail b on  t.contract_type = b.detail_code
+    where  t.company_code = #{companyCode} and t.company_code = b.company_code and b.item_code='contractType'
+    <if test="contractBookNo!=null and contractBookNo!=''">
+      and t.contract_book_no like CONCAT('%',#{contractBookNo},'%' )
+    </if>
+    <if test="contractTitle!=null and contractTitle!=''">
+      and t.contract_title like CONCAT('%',#{contractTitle},'%' )
+    </if>
+    <if test="contractType!=null and contractType!=''">
+      and t.contract_type = #{contractType}
+    </if>
+    <if test="customerName!=null and customerName!=''">
+      and t.customer_name like CONCAT('%',#{customerName},'%' )
+    </if>
+    <if test="orderId!=null and orderId!=''">
+      and t.order_id = #{orderId}
+    </if>
+    order by t.create_time desc
+  </select>
+  
+  
+  <select id="getListByIds" parameterType="list" resultType="String">
+    select content
+    from ent_contract_book_detail where status=1
+    and
+    id in
+    <foreach collection="list" item="id" open="(" close=")"
+             separator=",">
+      #{id}
+    </foreach>
+  </select>
+  <select id="selectListByParams" resultType="map">
+    select
+    <include refid="Base_Column_List" />
+    from ent_contract_book_detail ecbd
+    <where>
+      <if test="orderId!=null and orderId!=''">
+        and ecbd.order_id = #{orderId}
+      </if>
+    </where>
+  </select>
+</mapper>

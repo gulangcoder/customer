@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.customer.EntCustFileMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.customer.EntCustFile" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_url" property="fileUrl" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cust_id, file_type, file_url, company_code, productId,create_time, update_time, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_cust_file
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_cust_file
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.customer.EntCustFile" >
+    insert into ent_cust_file (id, cust_id, file_type, 
+      file_url, company_code,product_id, create_time,
+      update_time, status)
+    values (#{id,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{fileUrl,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="java.util.List">
+    insert into ent_cust_file(id,cust_id,file_type,file_url,company_code,product_id,create_time,update_time,status) VALUES
+    <foreach collection="list" item="entCustFile" index="index" separator="," >
+      (#{entCustFile.id,jdbcType=VARCHAR},#{entCustFile.custId,jdbcType=VARCHAR},#{entCustFile.fileType,jdbcType=VARCHAR},#{entCustFile.fileUrl,jdbcType=VARCHAR},
+       #{entCustFile.companyCode,jdbcType=VARCHAR},#{entCustFile.productId,jdbcType=VARCHAR},
+      #{entCustFile.createTime,jdbcType=TIMESTAMP},#{entCustFile.updateTime,jdbcType=TIMESTAMP}, #{entCustFile.status,jdbcType=SMALLINT})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.customer.EntCustFile" >
+    update ent_cust_file
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null" >
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.customer.EntCustFile" >
+    update ent_cust_file
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findCustFile" parameterType="map" resultType="cn.fintecher.app.model.customer.EntCustFile">
+    select cf.id id, cf.cust_id custId, cf.file_type fileType, cf.file_url fileUrl, cf.company_code companyCode,cf.product_id,
+    cf.create_time createTime, cf.update_time updateTime,cf.status status
+    from ent_cust_file cf JOIN sys_dict_detail dt
+    on cf.file_type = dt.detail_code
+    where cust_id = #{custId}
+    and dt.item_code = 'videoData'
+    and cf.company_code = #{companyCode}
+    and dt.company_code = #{companyCode}
+    <if test="productId != null and productId != '' " >
+      and cf.product_id = #{productId}
+    </if>
+    and file_type in
+    <foreach collection="list" item="fileType" open="(" close=")"
+             separator=",">
+      #{fileType}
+    </foreach>
+  </select>
+
+  <delete id="deleteCustomerFile" parameterType="map">
+    delete from ent_cust_file
+    where cust_id = #{custId} and company_code = #{companyCode}
+    and file_type in
+    <foreach collection="list" item="fileType" open="(" close=")" separator=",">
+      #{fileType}
+    </foreach>
+  </delete>
+
+  <select id="selectProductById" resultType="cn.fintecher.app.model.customer.EntProduct" parameterType="java.lang.String" >
+    select
+    id, company_code companyCode, sequence, product_series_sequence productSeriesSequence, product_series productSeries, product_image productImage,
+    product_min_lines productMinLines, product_max_lines productMaxLines, applicable_people applicablePeople, description, recommend,
+    status, create_user createUser, create_time createTime, update_user updateUser, update_time updateTime
+    from ent_product
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectVideoByMap"  resultType="cn.fintecher.app.model.customer.EntProductVideo" parameterType="java.util.Map" >
+    select
+    id, product_id productId, video_type videoType, create_time createTime, update_time updateTime,
+    create_user createUser, update_user updateUser, deleted_flag deletedFlag
+    from ent_product_video
+    where deleted_flag = 1
+    <if test="productDetailId != null and productDetailId != '' " >
+      AND product_id = #{productDetailId,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+</mapper>

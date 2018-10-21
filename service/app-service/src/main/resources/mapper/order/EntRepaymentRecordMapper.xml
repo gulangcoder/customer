@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.order.EntRepaymentRecordMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.order.EntRepaymentRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="periods_number" property="periodsNumber" jdbcType="INTEGER" />
+    <result column="principal" property="principal" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
+    <result column="default_interest" property="defaultInterest" jdbcType="DECIMAL" />
+    <result column="penalty" property="penalty" jdbcType="DECIMAL" />
+    <result column="total" property="penalty" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="repayment_type" property="repaymentType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, periods_number, principal, interest, service_charge, default_interest, 
+    penalty,total, create_time,state,repayment_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_repayment_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="getRepaymentRecordList" resultType="java.util.Map">
+      SELECT err.id,err.total,err.create_time repaymentTime,err.state,
+      eo.id orderId,eo.order_no orderNo,eo.product_credit_id productCreditId, eo.loan_amount loanAmount,
+      eci.cust_id custId,eci.real_name realName, eci.idcard_num idcardNum
+      from ent_repayment_record err
+      LEFT JOIN ent_order eo on err.order_id = eo.id
+      LEFT JOIN ent_customer_info eci on eo.cust_id = eci.cust_id
+      <where>
+        <if test="id !=null and id !=''">
+          and err.id LIKE CONCAT('%',#{id},'%' )
+        </if>
+        <if test="orderNo !=null and orderNo !=''">
+          and eo.order_no LIKE CONCAT('%',#{orderNo},'%' )
+        </if>
+        <if test="companyCode !=null and companyCode !=''">
+          and eci.company_code = #{companyCode}
+        </if>
+        <if test="realName !=null and realName !=''">
+          and eci.real_name LIKE CONCAT('%',#{realName},'%' )
+        </if>
+        <if test="idcardNum !=null and idcardNum !=''">
+          and eci.idcard_num = #{idcardNum}
+        </if>
+        <if test="productCreditIds !=null and productCreditIds !=''">
+          and FIND_IN_SET(eo.product_credit_id, #{productCreditIds})
+        </if>
+        <if test="startTime !=null and startTime !=''">
+          AND substring(err.create_time,1,10)
+          &gt;=#{startTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTime !=null and endTime !=''">
+          AND substring(err.create_time,1,10)
+          &lt;=#{endTime,jdbcType=VARCHAR}
+        </if>
+      </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_repayment_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" >
+    insert into ent_repayment_record (id, order_id, periods_number, 
+      principal, interest, service_charge, 
+      default_interest, penalty, create_time,total,state
+      )
+    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{periodsNumber,jdbcType=INTEGER}, 
+      #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, #{serviceCharge,jdbcType=DECIMAL}, 
+      #{defaultInterest,jdbcType=DECIMAL}, #{penalty,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP},#{total,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" >
+    insert into ent_repayment_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="periodsNumber != null" >
+        periods_number,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge,
+      </if>
+      <if test="defaultInterest != null" >
+        default_interest,
+      </if>
+      <if test="penalty != null" >
+        penalty,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="repaymentType != null" >
+         repayment_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null" >
+        #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultInterest != null" >
+        #{defaultInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="penalty != null" >
+        #{penalty,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentType != null" >
+        #{repaymentType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" >
+    update ent_repayment_record
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null" >
+        periods_number = #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultInterest != null" >
+        default_interest = #{defaultInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="penalty != null" >
+        penalty = #{penalty,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state=#{state,jdbcType=INTEGER},
+      </if>
+      <if test="repaymentType != null" >
+        repayment_type=#{repaymentType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <where>
+      1=1
+      <if test="id!=null and id!=''">
+        and id =#{id,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" >
+    update ent_repayment_record
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      periods_number = #{periodsNumber,jdbcType=INTEGER},
+      principal = #{principal,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      default_interest = #{defaultInterest,jdbcType=DECIMAL},
+      penalty = #{penalty,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getRepaymentRecordListByUser" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_repayment_record
+    <where>
+      1=1
+      <if test="custId!=null and custId!=''">
+        and order_id in (select id from ent_order where  cust_id=#{custId,jdbcType=VARCHAR})
+      </if>
+    </where>
+
+    order by create_time  desc
+  </select>
+</mapper>

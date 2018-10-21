@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fintecher.scheduler.mapper.TaskDispersedLockMapper">
+    <!--修改定时任务执行时间-->
+    <update id="updateTask" parameterType="map">
+        <![CDATA[update task_dispersed_lock  set utime = #{utime} where className=#{className} and utime < #{utime}]]>
+    </update>
+</mapper>

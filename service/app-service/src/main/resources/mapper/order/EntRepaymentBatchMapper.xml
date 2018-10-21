@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.order.EntRepaymentBatchMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.order.EntRepaymentBatch" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="periods_number" property="periodsNumber" jdbcType="INTEGER" />
+    <result column="principal" property="principal" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="expiry_time" property="expiryTime" jdbcType="TIMESTAMP" />
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
+    <result column="preposition_service_charge" property="prepositionServiceCharge" jdbcType="DECIMAL" />
+    <result column="bond" property="bond" jdbcType="DECIMAL" />
+    <result column="default_interest" property="defaultInterest" jdbcType="DECIMAL" />
+    <result column="penalty" property="penalty" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, periods_number, principal, interest, start_time, expiry_time, service_charge, 
+    preposition_service_charge, bond, default_interest, penalty, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_repayment_batch
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_repayment_batch
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.order.EntRepaymentBatch" >
+    insert into ent_repayment_batch (id, order_id, periods_number, 
+      principal, interest, start_time, 
+      expiry_time, service_charge, preposition_service_charge, 
+      bond, default_interest, penalty, 
+      create_time, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{periodsNumber,jdbcType=INTEGER}, 
+      #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{expiryTime,jdbcType=TIMESTAMP}, #{serviceCharge,jdbcType=DECIMAL}, #{prepositionServiceCharge,jdbcType=DECIMAL}, 
+      #{bond,jdbcType=DECIMAL}, #{defaultInterest,jdbcType=DECIMAL}, #{penalty,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.order.EntRepaymentBatch" >
+    insert into ent_repayment_batch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="periodsNumber != null" >
+        periods_number,
+      </if>
+      <if test="principal != null" >
+        principal,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time,
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge,
+      </if>
+      <if test="prepositionServiceCharge != null" >
+        preposition_service_charge,
+      </if>
+      <if test="bond != null" >
+        bond,
+      </if>
+      <if test="defaultInterest != null" >
+        default_interest,
+      </if>
+      <if test="penalty != null" >
+        penalty,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null" >
+        #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceCharge != null" >
+        #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepositionServiceCharge != null" >
+        #{prepositionServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="bond != null" >
+        #{bond,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultInterest != null" >
+        #{defaultInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="penalty != null" >
+        #{penalty,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.order.EntRepaymentBatch" >
+    update ent_repayment_batch
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null" >
+        periods_number = #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null" >
+        principal = #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepositionServiceCharge != null" >
+        preposition_service_charge = #{prepositionServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="bond != null" >
+        bond = #{bond,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultInterest != null" >
+        default_interest = #{defaultInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="penalty != null" >
+        penalty = #{penalty,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.order.EntRepaymentBatch" >
+    update ent_repayment_batch
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      periods_number = #{periodsNumber,jdbcType=INTEGER},
+      principal = #{principal,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      expiry_time = #{expiryTime,jdbcType=TIMESTAMP},
+      service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      preposition_service_charge = #{prepositionServiceCharge,jdbcType=DECIMAL},
+      bond = #{bond,jdbcType=DECIMAL},
+      default_interest = #{defaultInterest,jdbcType=DECIMAL},
+      penalty = #{penalty,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

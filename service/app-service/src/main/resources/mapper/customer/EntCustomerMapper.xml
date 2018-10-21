@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.customer.EntCustomerMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.customer.EntCustomer" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="error_count" property="errorCount" jdbcType="INTEGER" />
+    <result column="origin" property="origin" jdbcType="INTEGER" />
+    <result column="is_black" property="isBlack" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="lock_time" property="lockTime" jdbcType="TIMESTAMP" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cust_id, company_code, phone, password, error_count, origin, is_black, status,
+    lock_time, register_time, update_time, login_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_customer
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_customer
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.customer.EntCustomer" >
+    insert into ent_customer (id, cust_id, company_code,
+    phone, password, error_count,
+    origin, is_black, status,
+    lock_time, register_time, update_time,
+    login_time)
+    values (#{id,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR},
+    #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{errorCount,jdbcType=INTEGER},
+    #{origin,jdbcType=INTEGER}, #{isBlack,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+    #{lockTime,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+    #{loginTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.customer.EntCustomer" >
+    insert into ent_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="errorCount != null" >
+        error_count,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="isBlack != null" >
+        is_black,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lockTime != null" >
+        lock_time,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="loginTime != null" >
+        login_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCount != null" >
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=INTEGER},
+      </if>
+      <if test="isBlack != null" >
+        #{isBlack,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lockTime != null" >
+        #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null" >
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.customer.EntCustomer" >
+    update ent_customer
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCount != null" >
+        error_count = #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=INTEGER},
+      </if>
+      <if test="isBlack != null" >
+        is_black = #{isBlack,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lockTime != null" >
+        lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null" >
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.customer.EntCustomer" >
+    update ent_customer
+    set cust_id = #{custId,jdbcType=VARCHAR},
+    company_code = #{companyCode,jdbcType=VARCHAR},
+    phone = #{phone,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    error_count = #{errorCount,jdbcType=INTEGER},
+    origin = #{origin,jdbcType=INTEGER},
+    is_black = #{isBlack,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    lock_time = #{lockTime,jdbcType=TIMESTAMP},
+    register_time = #{registerTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    login_time = #{loginTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectCustomerByMap" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_customer
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode}
+    </if>
+    <if test="phone != null and phone != '' " >
+      AND phone = #{phone}
+    </if>
+    <if test="custId != null and custId != '' " >
+      AND cust_id = #{custId}
+    </if>
+  </select>
+
+  <update id="updatePasswordByMap" parameterType="map" >
+    update ent_customer
+    set password = #{newPassword}
+    where 1=1
+    AND company_code = #{companyCode}
+    AND phone = #{phone}
+    <if test="custId != null and custId != '' " >
+      AND cust_id = #{custId}
+    </if>
+  </update>
+
+  <select id="selectCustomerInfoByMap" resultType="cn.fintecher.app.model.customer.EntCustomerInfo" parameterType="map" >
+    select ci.cust_id custId,ci.idcard_num idcardNum,ci.realname_verify realnameVerify
+    from ent_customer_info ci left join ent_customer ec
+    on ci.cust_id = ec.cust_id
+    where 1=1
+    <if test="companyCode != null and companyCode != '' " >
+      AND ec.company_code = #{companyCode}
+    </if>
+    <if test="phone != null and phone != '' " >
+      AND ec.phone = #{phone}
+    </if>
+  </select>
+  <select id="selectEntCustomersByMap" resultType="java.util.Map">
+    SELECT ec.id,ec.cust_id,ec.phone,ec.status,ec.register_time,
+    eci.cust_num,eci.real_name,eci.idcard_num,eci.sex,eci.age
+    FROM ent_customer ec LEFT JOIN ent_customer_info eci on ec.cust_id = eci.cust_id
+    <where>
+      <if test="companyCode != null and companyCode != '' " >
+        AND ec.company_code = #{companyCode}
+      </if>
+      <if test="custNum != null and custNum != ''">
+        AND eci.cust_num = #{custNum}
+      </if>
+      <if test="realName != null and realName != ''">
+        AND eci.real_name  LIKE CONCAT('%',#{realName},'%')
+      </if>
+      <if test="idcardNum != null and idcardNum != ''">
+        AND eci.idcard_num = #{idcardNum}
+      </if>
+      <if test="phone != null and phone != ''">
+        AND ec.phone = #{phone}
+      </if>
+    </where>
+  </select>
+  <update id="updateCustomer" parameterType="cn.fintecher.app.model.customer.EntCustomer" >
+    update ent_customer
+    set
+    error_count = #{errorCount,jdbcType=INTEGER},
+    status = #{status,jdbcType=INTEGER},
+    lock_time = #{lockTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fintecher.scheduler.mapper.SysParaMapper">
+
+    <select id="getCompanyCode" resultType="map" >
+      SELECT company_code AS companyCode FROM sys_para GROUP BY company_code
+  </select>
+
+    <!-- 更新access_token-->
+    <update id="updateAccessToken"  parameterType="map">
+        UPDATE sys_para SET para_value = #{paraValue} WHERE para_name = #{paraName} AND company_code = #{companyCode}
+    </update>
+    <select id="selectByPrimaryKey" parameterType="map"  resultType="String">
+        SELECT para_value AS paraValue FROM sys_para WHERE para_name=#{paraName} AND company_code = #{companyCode}
+    </select>
+</mapper>

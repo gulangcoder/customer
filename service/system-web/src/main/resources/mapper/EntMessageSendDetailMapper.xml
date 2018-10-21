@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntMessageSendDetailMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.common.sms.EntMessageSendDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_tel" property="customerTel" jdbcType="VARCHAR" />
+    <result column="msg_templ_id" property="msgTemplId" jdbcType="VARCHAR" />
+    <result column="msg_title" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="msg_type" property="msgType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="Msg_send_type" property="msgSendType" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="have_read" property="haveRead" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, customer_id, customer_name, customer_tel, msg_templ_id, msg_title, msg_type, 
+    create_time, Msg_send_type, company_code,content, have_read
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_message_send_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_message_send_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.common.sms.EntMessageSendDetail" >
+    insert into ent_message_send_detail (id, customer_id, customer_name, 
+      customer_tel, msg_templ_id, msg_title, 
+      msg_type, create_time, Msg_send_type, 
+      company_code, content, have_read)
+    values (#{id,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerTel,jdbcType=VARCHAR}, #{msgTemplId,jdbcType=VARCHAR}, #{msgTitle,jdbcType=VARCHAR}, 
+      #{msgType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{msgSendType,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{haveRead,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.common.sms.EntMessageSendDetail" >
+    insert into ent_message_send_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerTel != null" >
+        customer_tel,
+      </if>
+      <if test="msgTemplId != null" >
+        msg_templ_id,
+      </if>
+      <if test="msgTitle != null" >
+        msg_title,
+      </if>
+      <if test="msgType != null" >
+        msg_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="msgSendType != null" >
+        Msg_send_type,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="haveRead != null" >
+        have_read,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTemplId != null" >
+        #{msgTemplId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null" >
+        #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgSendType != null" >
+        #{msgSendType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="haveRead != null" >
+        #{haveRead,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.common.sms.EntMessageSendDetail" >
+    update ent_message_send_detail
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        customer_tel = #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTemplId != null" >
+        msg_templ_id = #{msgTemplId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTitle != null" >
+        msg_title = #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgType != null" >
+        msg_type = #{msgType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgSendType != null" >
+        Msg_send_type = #{msgSendType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="haveRead != null" >
+        have_read = #{haveRead,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.common.sms.EntMessageSendDetail" >
+    update ent_message_send_detail
+    set customer_id = #{customerId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_tel = #{customerTel,jdbcType=VARCHAR},
+      msg_templ_id = #{msgTemplId,jdbcType=VARCHAR},
+      msg_title = #{msgTitle,jdbcType=VARCHAR},
+      msg_type = #{msgType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      msg_send_type = #{msgSendType,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      have_read = #{haveRead,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findList" parameterType="map" resultType="map">
+    select  t.id, t.customer_id customerId, t.customer_name customerName, t.customer_tel customerTel, t.msg_templ_id msgTemplId, t.msg_title msgTitle,
+    t.create_time createTime, t.Msg_send_type msgSendType, t.company_code companyCode,t.content,b.detail_name msgType, t.have_read haveRead
+    from ent_message_send_detail t left join sys_dict_detail b
+    on t.msg_type = b.detail_code
+    where t.company_code = #{companyCode} and t.company_code = b.company_code and b.item_code='msgType'
+    <if test="customerName!=null and customerName!=''">
+      and t.customer_name like CONCAT('%',#{customerName},'%')
+    </if>
+    <if test="customerTel!=null and customerTel!=''">
+      and t.customer_tel like CONCAT('%',#{customerTel},'%')
+    </if>
+    <if test="msgTitle!=null and msgTitle!=''">
+      and t.msg_title like CONCAT('%',#{msgTitle},'%')
+    </if>
+    <if test="msgType!=null and msgType!=''">
+      and t.msg_type =#{msgType}
+    </if>
+    <if test="msgSendType!=null and msgSendType!=''">
+      and t.msg_send_type = #{msgSendType}
+    </if>
+    <if test="sendTime!=null and sendTime !=''">
+      AND <![CDATA[DATE_FORMAT(t.create_time,'%Y-%m-%d') >= DATE_FORMAT(#{sendTime},'%Y-%m-%d')]]>
+    </if>
+    <if test="endTime!=null and endTime !=''">
+      AND <![CDATA[DATE_FORMAT(t.create_time,'%Y-%m-%d') <= DATE_FORMAT(#{endTime},'%Y-%m-%d')]]>
+    </if>
+    ORDER BY create_time DESC
+  </select>
+
+  <select id="getMsgTemplListOfApp" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_message_send_detail
+    where msg_send_type = '1'
+    <if test="customerId!=null and customerId!=''">
+      and customer_id = #{customerId}
+    </if>
+    <if test="companyCode!=null and companyCode!=''">
+      and company_code = #{companyCode}
+    </if>
+    ORDER BY create_time DESC
+  </select>
+</mapper>

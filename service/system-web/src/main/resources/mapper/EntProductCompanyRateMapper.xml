@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntProductCompanyRateMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntProductCompanyRate" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="product_credit_id" property="productCreditId" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="SMALLINT" />
+    <result column="type" property="type" jdbcType="SMALLINT" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="kind" property="kind" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_credit_id, company_id, company_code, company_name, rate, delete_flag, 
+    type, batch, kind
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_product_company_rate
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_product_company_rate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntProductCompanyRate" >
+    insert into ent_product_company_rate (id, product_credit_id, company_id, 
+      company_code, company_name, rate, 
+      delete_flag, type, batch, 
+      kind)
+    values (#{id,jdbcType=VARCHAR}, #{productCreditId,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, 
+      #{companyCode,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{rate,jdbcType=DECIMAL}, 
+      #{deleteFlag,jdbcType=SMALLINT}, #{type,jdbcType=SMALLINT}, #{batch,jdbcType=VARCHAR}, 
+      #{kind,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntProductCompanyRate" >
+    insert into ent_product_company_rate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productCreditId != null" >
+        product_credit_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="productCreditId != null" >
+        #{productCreditId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntProductCompanyRate" >
+    update ent_product_company_rate
+    <set >
+      <if test="productCreditId != null" >
+        product_credit_id = #{productCreditId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntProductCompanyRate" >
+    update ent_product_company_rate
+    set product_credit_id = #{productCreditId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=DECIMAL},
+      delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+      type = #{type,jdbcType=SMALLINT},
+      batch = #{batch,jdbcType=VARCHAR},
+      kind = #{kind,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateProductCompanyRate" parameterType="map">
+    update ent_product_company_rate
+    set
+    delete_flag = #{deletedFlag}
+    where product_credit_id = #{productCreditId}
+    and batch = #{batch}
+  </update>
+
+  <select id="selectCompanyRateByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_company_rate
+    where 1 = 1
+    <if test="productCreditId != null and productCreditId != '' " >
+      AND product_credit_id = #{productCreditId,jdbcType=VARCHAR}
+    </if>
+    <if test="batch != null and batch != '' " >
+      AND batch = #{batch,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

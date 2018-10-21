@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.system.mapper.EntProductCreditMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.system.model.EntProductCredit" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_series" property="productSeries" jdbcType="VARCHAR" />
+    <result column="product_detail_id" property="productDetailId" jdbcType="VARCHAR" />
+    <result column="product_sequence" property="productSequence" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="serial" property="serial" jdbcType="INTEGER" />
+    <result column="payment_way" property="paymentWay" jdbcType="VARCHAR" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="periods_days" property="periodsDays" jdbcType="INTEGER" />
+    <result column="each_term_type" property="eachTermType" jdbcType="SMALLINT" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="rate_flag" property="rateFlag" jdbcType="SMALLINT" />
+    <result column="contract_rate" property="contractRate" jdbcType="DECIMAL" />
+    <result column="contract_rate_flag" property="contractRateFlag" jdbcType="SMALLINT" />
+    <result column="paymeny_days_type" property="paymenyDaysType" jdbcType="SMALLINT" />
+    <result column="payment_day" property="paymentDay" jdbcType="INTEGER" />
+    <result column="contract_overdue_rate" property="contractOverdueRate" jdbcType="DECIMAL" />
+    <result column="credit_protection_days" property="creditProtectionDays" jdbcType="INTEGER" />
+    <result column="overdue_protection_days" property="overdueProtectionDays" jdbcType="INTEGER" />
+    <result column="overdue_rate_type" property="overdueRateType" jdbcType="SMALLINT" />
+    <result column="overdue_rate" property="overdueRate" jdbcType="DECIMAL" />
+    <result column="nopromise_company_type" property="nopromiseCompanyType" jdbcType="SMALLINT" />
+    <result column="penalty_rule" property="penaltyRule" jdbcType="VARCHAR" />
+    <result column="have_prepayment" property="havePrepayment" jdbcType="SMALLINT" />
+    <result column="prepayment_rate_type" property="prepaymentRateType" jdbcType="SMALLINT" />
+    <result column="prepayment_rate" property="prepaymentRate" jdbcType="DECIMAL" />
+    <result column="prepayment_company_type" property="prepaymentCompanyType" jdbcType="SMALLINT" />
+    <result column="prepayment_rule" property="prepaymentRule" jdbcType="VARCHAR" />
+    <result column="have_cash" property="haveCash" jdbcType="SMALLINT" />
+    <result column="cash_deposit_type" property="cashDepositType" jdbcType="SMALLINT" />
+    <result column="cash_deposit" property="cashDeposit" jdbcType="DECIMAL" />
+    <result column="refund_way" property="refundWay" jdbcType="VARCHAR" />
+    <result column="cash_company_type" property="cashCompanyType" jdbcType="SMALLINT" />
+    <result column="cash_deposit_rule" property="cashDepositRule" jdbcType="VARCHAR" />
+    <result column="have_service" property="haveService" jdbcType="SMALLINT" />
+    <result column="service_fee_rate" property="serviceFeeRate" jdbcType="DECIMAL" />
+    <result column="early_service_fee_rate" property="earlyServiceFeeRate" jdbcType="DECIMAL" />
+    <result column="service_fee_rule" property="serviceFeeRule" jdbcType="VARCHAR" />
+    <result column="service_company_type" property="serviceCompanyType" jdbcType="SMALLINT" />
+    <result column="have_poundage" property="havePoundage" jdbcType="SMALLINT" />
+    <result column="poundage" property="poundage" jdbcType="DECIMAL" />
+    <result column="poundage_company_type" property="poundageCompanyType" jdbcType="SMALLINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="SMALLINT" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_code, product_id, product_series, product_detail_id, product_sequence,
+    product_name, serial, payment_way, periods, periods_days, each_term_type, rate, rate_flag,
+    contract_rate, contract_rate_flag, paymeny_days_type, payment_day, contract_overdue_rate,
+    credit_protection_days, overdue_protection_days, overdue_rate_type, overdue_rate,
+    nopromise_company_type, penalty_rule, have_prepayment, prepayment_rate_type, prepayment_rate,
+    prepayment_company_type, prepayment_rule, have_cash, cash_deposit_type, cash_deposit,
+    refund_way, cash_company_type, cash_deposit_rule, have_service, service_fee_rate,
+    early_service_fee_rate, service_fee_rule, service_company_type, have_poundage, poundage,
+    poundage_company_type, remark, status, create_user, create_time, update_user, update_time,
+    delete_flag, batch
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_credit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_product_credit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.system.model.EntProductCredit" >
+    insert into ent_product_credit (id, company_code, product_id,
+    product_series, product_detail_id, product_sequence,
+    product_name, serial, payment_way,
+    periods, periods_days, each_term_type,
+    rate, rate_flag, contract_rate,
+    contract_rate_flag, paymeny_days_type, payment_day,
+    contract_overdue_rate, credit_protection_days,
+    overdue_protection_days, overdue_rate_type,
+    overdue_rate, nopromise_company_type, penalty_rule,
+    have_prepayment, prepayment_rate_type, prepayment_rate,
+    prepayment_company_type, prepayment_rule,
+    have_cash, cash_deposit_type, cash_deposit,
+    refund_way, cash_company_type, cash_deposit_rule,
+    have_service, service_fee_rate, early_service_fee_rate,
+    service_fee_rule, service_company_type, have_poundage,
+    poundage, poundage_company_type, remark,
+    status, create_user, create_time,
+    update_user, update_time, delete_flag,
+    batch)
+    values (#{id,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR},
+    #{productSeries,jdbcType=VARCHAR}, #{productDetailId,jdbcType=VARCHAR}, #{productSequence,jdbcType=VARCHAR},
+    #{productName,jdbcType=VARCHAR}, #{serial,jdbcType=INTEGER}, #{paymentWay,jdbcType=VARCHAR},
+    #{periods,jdbcType=INTEGER}, #{periodsDays,jdbcType=INTEGER}, #{eachTermType,jdbcType=SMALLINT},
+    #{rate,jdbcType=DECIMAL}, #{rateFlag,jdbcType=SMALLINT}, #{contractRate,jdbcType=DECIMAL},
+    #{contractRateFlag,jdbcType=SMALLINT}, #{paymenyDaysType,jdbcType=SMALLINT}, #{paymentDay,jdbcType=INTEGER},
+    #{contractOverdueRate,jdbcType=DECIMAL}, #{creditProtectionDays,jdbcType=INTEGER},
+    #{overdueProtectionDays,jdbcType=INTEGER}, #{overdueRateType,jdbcType=SMALLINT},
+    #{overdueRate,jdbcType=DECIMAL}, #{nopromiseCompanyType,jdbcType=SMALLINT}, #{penaltyRule,jdbcType=VARCHAR},
+    #{havePrepayment,jdbcType=SMALLINT}, #{prepaymentRateType,jdbcType=SMALLINT}, #{prepaymentRate,jdbcType=DECIMAL},
+    #{prepaymentCompanyType,jdbcType=SMALLINT}, #{prepaymentRule,jdbcType=VARCHAR},
+    #{haveCash,jdbcType=SMALLINT}, #{cashDepositType,jdbcType=SMALLINT}, #{cashDeposit,jdbcType=DECIMAL},
+    #{refundWay,jdbcType=VARCHAR}, #{cashCompanyType,jdbcType=SMALLINT}, #{cashDepositRule,jdbcType=VARCHAR},
+    #{haveService,jdbcType=SMALLINT}, #{serviceFeeRate,jdbcType=DECIMAL}, #{earlyServiceFeeRate,jdbcType=DECIMAL},
+    #{serviceFeeRule,jdbcType=VARCHAR}, #{serviceCompanyType,jdbcType=SMALLINT}, #{havePoundage,jdbcType=SMALLINT},
+    #{poundage,jdbcType=DECIMAL}, #{poundageCompanyType,jdbcType=SMALLINT}, #{remark,jdbcType=VARCHAR},
+    #{status,jdbcType=SMALLINT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=SMALLINT},
+    #{batch,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.system.model.EntProductCredit" >
+    insert into ent_product_credit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productSeries != null" >
+        product_series,
+      </if>
+      <if test="productDetailId != null" >
+        product_detail_id,
+      </if>
+      <if test="productSequence != null" >
+        product_sequence,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="serial != null" >
+        serial,
+      </if>
+      <if test="paymentWay != null" >
+        payment_way,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="periodsDays != null" >
+        periods_days,
+      </if>
+      <if test="eachTermType != null" >
+        each_term_type,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="rateFlag != null" >
+        rate_flag,
+      </if>
+      <if test="contractRate != null" >
+        contract_rate,
+      </if>
+      <if test="contractRateFlag != null" >
+        contract_rate_flag,
+      </if>
+      <if test="paymenyDaysType != null" >
+        paymeny_days_type,
+      </if>
+      <if test="paymentDay != null" >
+        payment_day,
+      </if>
+      <if test="contractOverdueRate != null" >
+        contract_overdue_rate,
+      </if>
+      <if test="creditProtectionDays != null" >
+        credit_protection_days,
+      </if>
+      <if test="overdueProtectionDays != null" >
+        overdue_protection_days,
+      </if>
+      <if test="overdueRateType != null" >
+        overdue_rate_type,
+      </if>
+      <if test="overdueRate != null" >
+        overdue_rate,
+      </if>
+      <if test="nopromiseCompanyType != null" >
+        nopromise_company_type,
+      </if>
+      <if test="penaltyRule != null" >
+        penalty_rule,
+      </if>
+      <if test="havePrepayment != null" >
+        have_prepayment,
+      </if>
+      <if test="prepaymentRateType != null" >
+        prepayment_rate_type,
+      </if>
+      <if test="prepaymentRate != null" >
+        prepayment_rate,
+      </if>
+      <if test="prepaymentCompanyType != null" >
+        prepayment_company_type,
+      </if>
+      <if test="prepaymentRule != null" >
+        prepayment_rule,
+      </if>
+      <if test="haveCash != null" >
+        have_cash,
+      </if>
+      <if test="cashDepositType != null" >
+        cash_deposit_type,
+      </if>
+      <if test="cashDeposit != null" >
+        cash_deposit,
+      </if>
+      <if test="refundWay != null" >
+        refund_way,
+      </if>
+      <if test="cashCompanyType != null" >
+        cash_company_type,
+      </if>
+      <if test="cashDepositRule != null" >
+        cash_deposit_rule,
+      </if>
+      <if test="haveService != null" >
+        have_service,
+      </if>
+      <if test="serviceFeeRate != null" >
+        service_fee_rate,
+      </if>
+      <if test="earlyServiceFeeRate != null" >
+        early_service_fee_rate,
+      </if>
+      <if test="serviceFeeRule != null" >
+        service_fee_rule,
+      </if>
+      <if test="serviceCompanyType != null" >
+        service_company_type,
+      </if>
+      <if test="havePoundage != null" >
+        have_poundage,
+      </if>
+      <if test="poundage != null" >
+        poundage,
+      </if>
+      <if test="poundageCompanyType != null" >
+        poundage_company_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productSeries != null" >
+        #{productSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="productDetailId != null" >
+        #{productDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="productSequence != null" >
+        #{productSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null" >
+        #{serial,jdbcType=INTEGER},
+      </if>
+      <if test="paymentWay != null" >
+        #{paymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="periodsDays != null" >
+        #{periodsDays,jdbcType=INTEGER},
+      </if>
+      <if test="eachTermType != null" >
+        #{eachTermType,jdbcType=SMALLINT},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="rateFlag != null" >
+        #{rateFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="contractRate != null" >
+        #{contractRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contractRateFlag != null" >
+        #{contractRateFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="paymenyDaysType != null" >
+        #{paymenyDaysType,jdbcType=SMALLINT},
+      </if>
+      <if test="paymentDay != null" >
+        #{paymentDay,jdbcType=INTEGER},
+      </if>
+      <if test="contractOverdueRate != null" >
+        #{contractOverdueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="creditProtectionDays != null" >
+        #{creditProtectionDays,jdbcType=INTEGER},
+      </if>
+      <if test="overdueProtectionDays != null" >
+        #{overdueProtectionDays,jdbcType=INTEGER},
+      </if>
+      <if test="overdueRateType != null" >
+        #{overdueRateType,jdbcType=SMALLINT},
+      </if>
+      <if test="overdueRate != null" >
+        #{overdueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="nopromiseCompanyType != null" >
+        #{nopromiseCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="penaltyRule != null" >
+        #{penaltyRule,jdbcType=VARCHAR},
+      </if>
+      <if test="havePrepayment != null" >
+        #{havePrepayment,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRateType != null" >
+        #{prepaymentRateType,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRate != null" >
+        #{prepaymentRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentCompanyType != null" >
+        #{prepaymentCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRule != null" >
+        #{prepaymentRule,jdbcType=VARCHAR},
+      </if>
+      <if test="haveCash != null" >
+        #{haveCash,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDepositType != null" >
+        #{cashDepositType,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDeposit != null" >
+        #{cashDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="refundWay != null" >
+        #{refundWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cashCompanyType != null" >
+        #{cashCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDepositRule != null" >
+        #{cashDepositRule,jdbcType=VARCHAR},
+      </if>
+      <if test="haveService != null" >
+        #{haveService,jdbcType=SMALLINT},
+      </if>
+      <if test="serviceFeeRate != null" >
+        #{serviceFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="earlyServiceFeeRate != null" >
+        #{earlyServiceFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFeeRule != null" >
+        #{serviceFeeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCompanyType != null" >
+        #{serviceCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="havePoundage != null" >
+        #{havePoundage,jdbcType=SMALLINT},
+      </if>
+      <if test="poundage != null" >
+        #{poundage,jdbcType=DECIMAL},
+      </if>
+      <if test="poundageCompanyType != null" >
+        #{poundageCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntProductCredit" >
+    update ent_product_credit
+    <set >
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productSeries != null" >
+        product_series = #{productSeries,jdbcType=VARCHAR},
+      </if>
+      <if test="productDetailId != null" >
+        product_detail_id = #{productDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="productSequence != null" >
+        product_sequence = #{productSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null" >
+        serial = #{serial,jdbcType=INTEGER},
+      </if>
+      <if test="paymentWay != null" >
+        payment_way = #{paymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="periodsDays != null" >
+        periods_days = #{periodsDays,jdbcType=INTEGER},
+      </if>
+      <if test="eachTermType != null" >
+        each_term_type = #{eachTermType,jdbcType=SMALLINT},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="rateFlag != null" >
+        rate_flag = #{rateFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="contractRate != null" >
+        contract_rate = #{contractRate,jdbcType=DECIMAL},
+      </if>
+      <if test="contractRateFlag != null" >
+        contract_rate_flag = #{contractRateFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="paymenyDaysType != null" >
+        paymeny_days_type = #{paymenyDaysType,jdbcType=SMALLINT},
+      </if>
+      <if test="paymentDay != null" >
+        payment_day = #{paymentDay,jdbcType=INTEGER},
+      </if>
+      <if test="contractOverdueRate != null" >
+        contract_overdue_rate = #{contractOverdueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="creditProtectionDays != null" >
+        credit_protection_days = #{creditProtectionDays,jdbcType=INTEGER},
+      </if>
+      <if test="overdueProtectionDays != null" >
+        overdue_protection_days = #{overdueProtectionDays,jdbcType=INTEGER},
+      </if>
+      <if test="overdueRateType != null" >
+        overdue_rate_type = #{overdueRateType,jdbcType=SMALLINT},
+      </if>
+      <if test="overdueRate != null" >
+        overdue_rate = #{overdueRate,jdbcType=DECIMAL},
+      </if>
+      <if test="nopromiseCompanyType != null" >
+        nopromise_company_type = #{nopromiseCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="penaltyRule != null" >
+        penalty_rule = #{penaltyRule,jdbcType=VARCHAR},
+      </if>
+      <if test="havePrepayment != null" >
+        have_prepayment = #{havePrepayment,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRateType != null" >
+        prepayment_rate_type = #{prepaymentRateType,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRate != null" >
+        prepayment_rate = #{prepaymentRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentCompanyType != null" >
+        prepayment_company_type = #{prepaymentCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="prepaymentRule != null" >
+        prepayment_rule = #{prepaymentRule,jdbcType=VARCHAR},
+      </if>
+      <if test="haveCash != null" >
+        have_cash = #{haveCash,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDepositType != null" >
+        cash_deposit_type = #{cashDepositType,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDeposit != null" >
+        cash_deposit = #{cashDeposit,jdbcType=DECIMAL},
+      </if>
+      <if test="refundWay != null" >
+        refund_way = #{refundWay,jdbcType=VARCHAR},
+      </if>
+      <if test="cashCompanyType != null" >
+        cash_company_type = #{cashCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="cashDepositRule != null" >
+        cash_deposit_rule = #{cashDepositRule,jdbcType=VARCHAR},
+      </if>
+      <if test="haveService != null" >
+        have_service = #{haveService,jdbcType=SMALLINT},
+      </if>
+      <if test="serviceFeeRate != null" >
+        service_fee_rate = #{serviceFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="earlyServiceFeeRate != null" >
+        early_service_fee_rate = #{earlyServiceFeeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFeeRule != null" >
+        service_fee_rule = #{serviceFeeRule,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCompanyType != null" >
+        service_company_type = #{serviceCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="havePoundage != null" >
+        have_poundage = #{havePoundage,jdbcType=SMALLINT},
+      </if>
+      <if test="poundage != null" >
+        poundage = #{poundage,jdbcType=DECIMAL},
+      </if>
+      <if test="poundageCompanyType != null" >
+        poundage_company_type = #{poundageCompanyType,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntProductCredit" >
+    update ent_product_credit
+    set company_code = #{companyCode,jdbcType=VARCHAR},
+    product_id = #{productId,jdbcType=VARCHAR},
+    product_series = #{productSeries,jdbcType=VARCHAR},
+    product_detail_id = #{productDetailId,jdbcType=VARCHAR},
+    product_sequence = #{productSequence,jdbcType=VARCHAR},
+    product_name = #{productName,jdbcType=VARCHAR},
+    serial = #{serial,jdbcType=INTEGER},
+    payment_way = #{paymentWay,jdbcType=VARCHAR},
+    periods = #{periods,jdbcType=INTEGER},
+    periods_days = #{periodsDays,jdbcType=INTEGER},
+    each_term_type = #{eachTermType,jdbcType=SMALLINT},
+    rate = #{rate,jdbcType=DECIMAL},
+    rate_flag = #{rateFlag,jdbcType=SMALLINT},
+    contract_rate = #{contractRate,jdbcType=DECIMAL},
+    contract_rate_flag = #{contractRateFlag,jdbcType=SMALLINT},
+    paymeny_days_type = #{paymenyDaysType,jdbcType=SMALLINT},
+    payment_day = #{paymentDay,jdbcType=INTEGER},
+    contract_overdue_rate = #{contractOverdueRate,jdbcType=DECIMAL},
+    credit_protection_days = #{creditProtectionDays,jdbcType=INTEGER},
+    overdue_protection_days = #{overdueProtectionDays,jdbcType=INTEGER},
+    overdue_rate_type = #{overdueRateType,jdbcType=SMALLINT},
+    overdue_rate = #{overdueRate,jdbcType=DECIMAL},
+    nopromise_company_type = #{nopromiseCompanyType,jdbcType=SMALLINT},
+    penalty_rule = #{penaltyRule,jdbcType=VARCHAR},
+    have_prepayment = #{havePrepayment,jdbcType=SMALLINT},
+    prepayment_rate_type = #{prepaymentRateType,jdbcType=SMALLINT},
+    prepayment_rate = #{prepaymentRate,jdbcType=DECIMAL},
+    prepayment_company_type = #{prepaymentCompanyType,jdbcType=SMALLINT},
+    prepayment_rule = #{prepaymentRule,jdbcType=VARCHAR},
+    have_cash = #{haveCash,jdbcType=SMALLINT},
+    cash_deposit_type = #{cashDepositType,jdbcType=SMALLINT},
+    cash_deposit = #{cashDeposit,jdbcType=DECIMAL},
+    refund_way = #{refundWay,jdbcType=VARCHAR},
+    cash_company_type = #{cashCompanyType,jdbcType=SMALLINT},
+    cash_deposit_rule = #{cashDepositRule,jdbcType=VARCHAR},
+    have_service = #{haveService,jdbcType=SMALLINT},
+    service_fee_rate = #{serviceFeeRate,jdbcType=DECIMAL},
+    early_service_fee_rate = #{earlyServiceFeeRate,jdbcType=DECIMAL},
+    service_fee_rule = #{serviceFeeRule,jdbcType=VARCHAR},
+    service_company_type = #{serviceCompanyType,jdbcType=SMALLINT},
+    have_poundage = #{havePoundage,jdbcType=SMALLINT},
+    poundage = #{poundage,jdbcType=DECIMAL},
+    poundage_company_type = #{poundageCompanyType,jdbcType=SMALLINT},
+    remark = #{remark,jdbcType=VARCHAR},
+    status = #{status,jdbcType=SMALLINT},
+    create_user = #{createUser,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_user = #{updateUser,jdbcType=VARCHAR},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    delete_flag = #{deleteFlag,jdbcType=SMALLINT},
+    batch = #{batch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectCreditListByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+      t1.id, t1.company_code, t1.product_id, t2.product_series, t1.product_detail_id, t1.product_sequence,
+      t3.product_name, t1.serial, t1.payment_way, t1.periods, t1.periods_days, t1.each_term_type, t1.rate, t1.rate_flag,
+      t1.contract_rate, t1.contract_rate_flag, t1.paymeny_days_type, t1.payment_day, t1.contract_overdue_rate,
+      t1.credit_protection_days, t1.overdue_protection_days, t1.overdue_rate_type, t1.overdue_rate,
+      t1.nopromise_company_type, t1.penalty_rule, t1.have_prepayment, t1.prepayment_rate_type, t1.prepayment_rate,
+      t1.prepayment_company_type, t1.prepayment_rule, t1.have_cash, t1.cash_deposit_type, t1.cash_deposit,
+      t1.refund_way, t1.cash_company_type, t1.cash_deposit_rule, t1.have_service, t1.service_fee_rate,
+      t1.early_service_fee_rate, t1.service_fee_rule, t1.service_company_type, t1.have_poundage, t1.poundage,
+      t1.poundage_company_type, t1.remark, t1.status, t1.create_user, t1.create_time, t1.update_user, t1.update_time,
+      t1.delete_flag, t1.batch
+    from ent_product_credit t1
+    LEFT JOIN ent_product t2 ON t1.product_id = t2.id
+    LEFT JOIN ent_product_detail t3 ON t1.product_detail_id = t3.id
+    where t1.delete_flag = 0
+    <if test="companyCode != null and companyCode != '' " >
+      AND t1.company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="productDetailId != null and productDetailId != '' " >
+      AND t1.product_detail_id = #{productDetailId,jdbcType=VARCHAR}
+    </if>
+    <if test="productSequence != null and productSequence != '' " >
+      AND t1.product_sequence like  CONCAT('%',#{productSequence},'%' )
+    </if>
+    <if test="productName != null and productName != '' " >
+      AND t1.product_name = #{productName,jdbcType=VARCHAR}
+    </if>
+    <if test="paymentWay != null and paymentWay != '' " >
+      AND t1.payment_way = #{paymentWay,jdbcType=VARCHAR}
+    </if>
+    <if test="periods != null and periods != '' " >
+      AND t1.periods = #{periods,jdbcType=INTEGER}
+    </if>
+    <if test="statuszw != null " >
+      AND t1.status = #{statuszw,jdbcType=SMALLINT}
+    </if>
+    ORDER BY t1.serial DESC
+  </select>
+
+  <update id="updatePriductCreditStatus" parameterType="map">
+    update ent_product_credit
+    set status = #{status},
+    update_user = #{updateUser},
+    update_time = #{updateTime}
+    where id = #{id}
+  </update>
+
+  <select id="getPeriodsList" resultType="java.util.Map" parameterType="java.util.Map" >
+    select DISTINCT periods  from ent_product_credit
+    where delete_flag = 0
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    order by periods desc
+  </select>
+
+  <select id="getProductCreditByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from ent_product_credit
+    where delete_flag = 0
+    <if test="id != null and id != '' " >
+      AND id != #{id,jdbcType=VARCHAR}
+    </if>
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="productDetailId != null and productDetailId != '' " >
+      AND product_detail_id = #{productDetailId,jdbcType=VARCHAR}
+    </if>
+    <if test="productId != null and productId != '' " >
+      AND product_id = #{productId,jdbcType=VARCHAR}
+    </if>
+    <if test="periodsDays != null and periodsDays != '' " >
+      AND periods_days = #{periodsDays,jdbcType=INTEGER}
+    </if>
+    <if test="periods != null and periods != '' " >
+      AND periods = #{periods,jdbcType=INTEGER}
+    </if>
+    <if test="eachTermType != null " >
+      AND each_term_type = #{eachTermType,jdbcType=SMALLINT}
+    </if>
+    ORDER BY serial DESC
+  </select>
+  <select id="getProductNameList" resultType="java.util.Map">
+    select DISTINCT product_name  from ent_product_credit
+    where delete_flag = 0
+    <if test="companyCode != null and companyCode != '' " >
+      AND company_code = #{companyCode,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.order.EntRepaymentRecordDetailedMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.order.EntRepaymentRecordDetailed" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="repayment_record_id" property="repaymentRecordId" jdbcType="VARCHAR" />
+    <result column="repayment_plan_id" property="repaymentPlanId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, repayment_record_id, repayment_plan_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_repayment_record_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="getPaidList" resultType="java.util.Map">
+      SELECT erp.*
+      from ent_repayment_record_detailed errd
+      LEFT JOIN ent_repayment_plan erp on errd.repayment_plan_id = erp.id
+      <where>
+        <if test="repaymentRecordId !=null and repaymentRecordId !=''">
+          and errd.repayment_record_id=#{repaymentRecordId,jdbcType=VARCHAR}
+        </if>
+      </where>
+    </select>
+  <select id="getRepaymentDetail" resultType="java.util.Map">
+    SELECT erb.*,erp.state
+    from ent_repayment_record_detailed errd
+    LEFT JOIN ent_repayment_plan erp on errd.repayment_plan_id = erp.id
+    LEFT JOIN ent_repayment_batch erb on erp.order_id = erb.order_id and erp.periods_number = erb.periods_number
+    and substring(erb.create_time,1,10) = substring(errd.create_time,1,10)
+    where errd.repayment_record_id = #{repaymentRecordId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_repayment_record_detailed
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.order.EntRepaymentRecordDetailed" >
+    insert into ent_repayment_record_detailed (id, repayment_record_id, repayment_plan_id, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{repaymentRecordId,jdbcType=VARCHAR}, #{repaymentPlanId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.order.EntRepaymentRecordDetailed" >
+    insert into ent_repayment_record_detailed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="repaymentRecordId != null" >
+        repayment_record_id,
+      </if>
+      <if test="repaymentPlanId != null" >
+        repayment_plan_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentRecordId != null" >
+        #{repaymentRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentPlanId != null" >
+        #{repaymentPlanId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.order.EntRepaymentRecordDetailed" >
+    update ent_repayment_record_detailed
+    <set >
+      <if test="repaymentRecordId != null" >
+        repayment_record_id = #{repaymentRecordId,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentPlanId != null" >
+        repayment_plan_id = #{repaymentPlanId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.order.EntRepaymentRecordDetailed" >
+    update ent_repayment_record_detailed
+    set repayment_record_id = #{repaymentRecordId,jdbcType=VARCHAR},
+      repayment_plan_id = #{repaymentPlanId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO ent_repayment_record_detailed (id, repayment_record_id, repayment_plan_id,
+    create_time)
+    VALUES
+    <foreach collection ="list" item="detailed" separator =",">
+      (#{detailed.id}, #{detailed.repaymentRecordId}, #{detailed.repaymentPlanId}, #{detailed.createTime})
+    </foreach >
+  </insert>
+</mapper>

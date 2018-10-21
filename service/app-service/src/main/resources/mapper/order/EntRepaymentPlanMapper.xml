@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fintecher.app.mapper.order.EntRepaymentPlanMapper">
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.order.EntRepaymentPlan">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="periods_number" jdbcType="INTEGER" property="periodsNumber" />
+    <result column="principal" jdbcType="DECIMAL" property="principal" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="expiry_time" jdbcType="VARCHAR" property="expiryTime" />
+    <result column="service_charge" jdbcType="DECIMAL" property="serviceCharge" />
+    <result column="preposition_service_charge" jdbcType="DECIMAL" property="prepositionServiceCharge" />
+    <result column="bond" jdbcType="DECIMAL" property="bond" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="overdueDays" jdbcType="INTEGER" property="overdueDays" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cust_id, order_id, periods_number, principal, interest, start_time, expiry_time, 
+    service_charge, preposition_service_charge, bond, state, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ent_repayment_plan
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+    <select id="getOverdueCount" resultType="java.util.Map">
+      SELECT count(erb.id) overdueCount,
+      IFNULL(max(
+      case when TO_DAYS(erb.expiry_time) &lt; TO_DAYS(err.create_time) then to_days(err.create_time)-TO_DAYS(erb.expiry_time)
+      when (TO_DAYS(erb.expiry_time) &lt; TO_DAYS(NOW()) and err.create_time is NULL) then to_days(now())-TO_DAYS(erb.expiry_time) end
+      ),0) biggestDeafaultDays
+      from ent_repayment_batch erb
+      LEFT JOIN ent_repayment_plan erp on erb.order_id = erp.order_id and erb.periods_number = erp.periods_number
+      LEFT JOIN ent_repayment_record_detailed errd on errd.repayment_plan_id = erp.id
+      LEFT JOIN ent_repayment_record err on err.id = errd.repayment_record_id
+      where 1=1
+      and ( TO_DAYS(erb.expiry_time) &lt; TO_DAYS(err.create_time) or (TO_DAYS(erb.expiry_time) &lt; TO_DAYS(NOW()) and err.create_time is NULL) )
+      and find_in_set(erb.order_id,#{orderIds})
+      and substring(erb.create_time,1,10) = (SELECT substring(MAX(create_time),1,10) from ent_repayment_record WHERE find_in_set(erb.order_id,#{orderIds}));
+    </select>
+  <select id="getRepaymentInfo" resultType="java.util.Map">
+    SELECT erp.periods_number defaultPeriods
+    from ent_repayment_plan erp LEFT JOIN ent_repayment_record err on erp.order_id = err.order_id and erp.periods_number = err.periods_number
+    where
+    (erp.expiry_time &lt; NOW() and err.create_time is NULL)
+    and erp.order_id = #{orderId};
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ent_repayment_plan
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.order.EntRepaymentPlan">
+    insert into ent_repayment_plan (id, cust_id, order_id, 
+      periods_number, principal, interest, 
+      start_time, expiry_time, service_charge, 
+      preposition_service_charge, bond, state, 
+      create_time, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{periodsNumber,jdbcType=INTEGER}, #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
+      #{startTime,jdbcType=VARCHAR}, #{expiryTime,jdbcType=VARCHAR}, #{serviceCharge,jdbcType=DECIMAL},
+      #{prepositionServiceCharge,jdbcType=DECIMAL}, #{bond,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.order.EntRepaymentPlan">
+    insert into ent_repayment_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="periodsNumber != null">
+        periods_number,
+      </if>
+      <if test="principal != null">
+        principal,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="expiryTime != null">
+        expiry_time,
+      </if>
+      <if test="serviceCharge != null">
+        service_charge,
+      </if>
+      <if test="prepositionServiceCharge != null">
+        preposition_service_charge,
+      </if>
+      <if test="bond != null">
+        bond,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null">
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null">
+        #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null">
+        #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryTime != null">
+        #{expiryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCharge != null">
+        #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepositionServiceCharge != null">
+        #{prepositionServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="bond != null">
+        #{bond,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.order.EntRepaymentPlan">
+    update ent_repayment_plan
+    <set>
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsNumber != null">
+        periods_number = #{periodsNumber,jdbcType=INTEGER},
+      </if>
+      <if test="principal != null">
+        principal = #{principal,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryTime != null">
+        expiry_time = #{expiryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCharge != null">
+        service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="prepositionServiceCharge != null">
+        preposition_service_charge = #{prepositionServiceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="bond != null">
+        bond = #{bond,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.order.EntRepaymentPlan">
+    update ent_repayment_plan
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      periods_number = #{periodsNumber,jdbcType=INTEGER},
+      principal = #{principal,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      expiry_time = #{expiryTime,jdbcType=VARCHAR},
+      service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      preposition_service_charge = #{prepositionServiceCharge,jdbcType=DECIMAL},
+      bond = #{bond,jdbcType=DECIMAL},
+      state = #{state,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO ent_repayment_plan (id, cust_id,order_id,periods_number,principal,interest,start_time,expiry_time,service_charge,preposition_service_charge,poundage,bond,state,create_time)
+    VALUES
+    <foreach collection ="list" item="entRepaymentPlan" separator =",">
+      (#{entRepaymentPlan.id}, #{entRepaymentPlan.custId}, #{entRepaymentPlan.orderId}, #{entRepaymentPlan.periodsNumber}, #{entRepaymentPlan.principal}, #{entRepaymentPlan.interest}, #{entRepaymentPlan.startTime}, #{entRepaymentPlan.expiryTime}, #{entRepaymentPlan.serviceCharge}, #{entRepaymentPlan.prepositionServiceCharge}, #{entRepaymentPlan.poundage}, #{entRepaymentPlan.bond}, #{entRepaymentPlan.state}, #{entRepaymentPlan.createTime})
+    </foreach >
+  </insert>
+
+  <select id="findByIdList" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ent_repayment_plan
+    <where>
+      1=1
+      <if test="orderId!=null and orderId!=''">
+        and order_id=#{orderId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by periods_number  asc
+  </select>
+  <select id="getRepaidSum" resultType="java.util.Map">
+    SELECT SUM(err.principal) returnPrincipal,SUM(err.interest) returnInterest from ent_repayment_record err where err.order_id = #{orderId};
+  </select>
+  <select id="getPlanSum" resultType="java.util.Map">
+    SELECT SUM(erp.principal) planPrincipal,SUM(erp.interest) planInterest from ent_repayment_plan erp where erp.order_id = #{orderId};;
+  </select>
+  <select id="getList" resultType="cn.fintecher.app.model.order.EntRepaymentPlan">
+    select
+    <include refid="Base_Column_List" />
+    from ent_repayment_plan
+    <where>
+      1=1
+      <if test="orderId!=null and orderId!=''">
+        and order_id=#{orderId,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by periods_number  asc
+  </select>
+
+  <update id="updateBatch" parameterType="java.util.List">
+    update ent_repayment_plan
+    set  state=
+    <foreach collection="list" item="item" index="index"
+             separator=" " open="case ID" close="end">
+      when #{item.id} then #{item.state}
+    </foreach>
+    where id in
+    <foreach collection="list" index="index" item="item"
+             separator="," open="(" close=")">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+
+  <select id="getEntRepaymentPlanList" parameterType="cn.fintecher.app.model.order.EntRepaymentRecord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ent_repayment_plan
+    <where>
+      1=1
+      <if test="orderId !=null and orderId != ''">
+        and order_id=#{orderId,jdbcType=VARCHAR}
+      </if>
+    </where>
+     order by periods_number  asc
+  </select>
+
+  <select id="getRepaymentRecordDetailed"  resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from ent_repayment_plan
+    <where>
+      1=1
+      <if test="recordId!=null and recordId!=''">
+        and id in(SELECT repayment_plan_id from ent_repayment_record_detailed where repayment_record_id=#{recordId,jdbcType=VARCHAR})
+      </if>
+    </where>
+    order by periods_number  asc
+  </select>
+
+
+  <select id="getOverdueEntRepaymentPlan"  resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,to_days(expiry_time)-to_days(now()) as overdueDays
+    from ent_repayment_plan
+    <where>
+      1=1
+      <if test="custId!=null and custId!=''">
+        and  order_id in(select id from ent_order where state=4 and cust_id=#{custId,jdbcType=VARCHAR}) and state=0
+      </if>
+    </where>
+  </select>
+</mapper>

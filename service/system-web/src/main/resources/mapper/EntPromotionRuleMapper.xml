@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.fintecher.system.mapper.EntPromotionRuleMapper">
+	<resultMap id="EntPromotionRuleResultMap" type="cn.fintecher.system.model.EntPromotionRule">
+		<id column="id" property="id"></id>
+		<result column="condit" property="condit"></result>
+		<result column="result" property="result"></result>
+		<result column="promotion_code" property="promotionCode"></result>
+	</resultMap>
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 id,	condit,	result,	promotion_code
+	</sql>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPrimaryKey" resultMap="EntPromotionRuleResultMap" parameterType="java.lang.String">
+		 SELECT
+		 <include refid="Base_Column_List" />
+		 FROM ent_promotion_rule
+		 WHERE id = #{id}
+	</select>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		 DELETE FROM ent_promotion_rule
+		 WHERE id = #{id}
+	</delete>
+
+	<!-- 添加 -->
+	<insert id="insert" parameterType="cn.fintecher.system.model.EntPromotionRule">
+		 INSERT INTO ent_promotion_rule
+ 		(id,condit,result,promotion_code) 
+		 VALUES 
+ 		(#{id},#{condit},#{result},#{promotionCode}) 
+	</insert>
+
+	<!-- 添加 （匹配有值的字段）-->
+	<insert id="insertSelective" parameterType="cn.fintecher.system.model.EntPromotionRule">
+		 INSERT INTO ent_promotion_rule
+		 <trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">
+				 id,
+			</if>
+			<if test="condit != null">
+				 condit,
+			</if>
+			<if test="result != null">
+				 result,
+			</if>
+			<if test="promotionCode != null">
+				 promotion_code,
+			</if>
+
+		 </trim>
+		 <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id!=null">
+				 #{id},
+			</if>
+			<if test="condit!=null">
+				 #{condit},
+			</if>
+			<if test="result!=null">
+				 #{result},
+			</if>
+			<if test="promotionCode!=null">
+				 #{promotionCode},
+			</if>
+		 </trim>
+	</insert>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.system.model.EntPromotionRule">
+		 UPDATE ent_promotion_rule
+ 		 <set> 
+			<if test="condit != null">
+				 condit = #{condit},
+			</if>
+			<if test="result != null">
+				 result = #{result},
+			</if>
+			<if test="promotionCode != null">
+				 promotion_code = #{promotionCode},
+			</if>
+
+ 		 </set>
+		 WHERE id = #{id}
+	</update>
+
+	<!-- 修 改-->
+	<update id="updateByPrimaryKey" parameterType="cn.fintecher.system.model.EntPromotionRule">
+		 UPDATE ent_promotion_rule
+		 SET 
+			 condit = #{condit},
+			 result = #{result},
+			 promotion_code = #{promotionCode}
+		 WHERE id = #{id}
+	</update>
+
+
+	<insert id="insertList" parameterType="java.util.List">
+		INSERT INTO ent_promotion_rule
+		(id,condit,result,promotion_code)
+		VALUES
+		<foreach collection="list" item="emp" separator=",">
+			(#{emp.id},#{emp.condit},#{emp.result},#{emp.promotionCode})
+		</foreach>
+	</insert>
+
+	<!--删除：根据主键ID删除-->
+	<delete id="deleteByPromotionCode" parameterType="java.lang.String">
+		DELETE FROM ent_promotion_rule
+		WHERE promotion_code = #{promotionCode}
+	</delete>
+
+	<!-- 查询（根据主键ID查询） -->
+	<select id="selectByPromotionCode" resultMap="EntPromotionRuleResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ent_promotion_rule
+		WHERE promotion_code = #{promotionCode}
+	</select>
+
+
+</mapper>

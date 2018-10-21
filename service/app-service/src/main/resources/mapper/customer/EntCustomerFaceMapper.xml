@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.fintecher.app.mapper.customer.EntCustomerFaceMapper" >
+  <resultMap id="BaseResultMap" type="cn.fintecher.app.model.customer.EntCustomerFace" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cust_id" property="custId" jdbcType="VARCHAR" />
+    <result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+    <result column="face_photo" property="facePhoto" jdbcType="VARCHAR" />
+    <result column="face_video" property="faceVideo" jdbcType="VARCHAR" />
+    <result column="face_live_rate" property="faceLiveRate" jdbcType="VARCHAR" />
+    <result column="face_similarity" property="faceSimilarity" jdbcType="VARCHAR" />
+    <result column="face_status" property="faceStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cust_id, company_code, face_photo, face_video, face_live_rate, face_similarity, 
+    face_status, create_time, update_time, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ent_customer_face
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ent_customer_face
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.fintecher.app.model.customer.EntCustomerFace" >
+    insert into ent_customer_face (id, cust_id, company_code, 
+      face_photo, face_video, face_live_rate, 
+      face_similarity, face_status, create_time, 
+      update_time, status)
+    values (#{id,jdbcType=VARCHAR}, #{custId,jdbcType=VARCHAR}, #{companyCode,jdbcType=VARCHAR}, 
+      #{facePhoto,jdbcType=VARCHAR}, #{faceVideo,jdbcType=VARCHAR}, #{faceLiveRate,jdbcType=VARCHAR}, 
+      #{faceSimilarity,jdbcType=VARCHAR}, #{faceStatus,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.fintecher.app.model.customer.EntCustomerFace" >
+    insert into ent_customer_face
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="companyCode != null" >
+        company_code,
+      </if>
+      <if test="facePhoto != null" >
+        face_photo,
+      </if>
+      <if test="faceVideo != null" >
+        face_video,
+      </if>
+      <if test="faceLiveRate != null" >
+        face_live_rate,
+      </if>
+      <if test="faceSimilarity != null" >
+        face_similarity,
+      </if>
+      <if test="faceStatus != null" >
+        face_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="facePhoto != null" >
+        #{facePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="faceVideo != null" >
+        #{faceVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="faceLiveRate != null" >
+        #{faceLiveRate,jdbcType=VARCHAR},
+      </if>
+      <if test="faceSimilarity != null" >
+        #{faceSimilarity,jdbcType=VARCHAR},
+      </if>
+      <if test="faceStatus != null" >
+        #{faceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.fintecher.app.model.customer.EntCustomerFace" >
+    update ent_customer_face
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCode != null" >
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="facePhoto != null" >
+        face_photo = #{facePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="faceVideo != null" >
+        face_video = #{faceVideo,jdbcType=VARCHAR},
+      </if>
+      <if test="faceLiveRate != null" >
+        face_live_rate = #{faceLiveRate,jdbcType=VARCHAR},
+      </if>
+      <if test="faceSimilarity != null" >
+        face_similarity = #{faceSimilarity,jdbcType=VARCHAR},
+      </if>
+      <if test="faceStatus != null" >
+        face_status = #{faceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.fintecher.app.model.customer.EntCustomerFace" >
+    update ent_customer_face
+    set cust_id = #{custId,jdbcType=VARCHAR},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      face_photo = #{facePhoto,jdbcType=VARCHAR},
+      face_video = #{faceVideo,jdbcType=VARCHAR},
+      face_live_rate = #{faceLiveRate,jdbcType=VARCHAR},
+      face_similarity = #{faceSimilarity,jdbcType=VARCHAR},
+      face_status = #{faceStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteFaceByMap" parameterType="map" >
+    delete from ent_customer_face
+    where cust_id = #{custId}
+      AND company_code = #{companyCode}
+  </delete>
+</mapper>
